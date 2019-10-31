@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>randomforest on Jiri Stodulka</title>
+    <link>https://jiristodulka.com/%60/tags/randomforest/</link>
+    <description>Recent content in randomforest on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    <lastBuildDate>Tue, 28 May 2019 19:26:32 -0400</lastBuildDate>
+    
+	    <atom:link href="https://jiristodulka.com/%60/tags/randomforest/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Supervised Machine Learning With Scikit-learn and Diabetes</title>
+      <link>https://jiristodulka.com/%60/post/supervised-ml/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/post/supervised-ml/</guid>
+      <description>
+
+&lt;p&gt;In this post, I will explore and configure a few classification algorithms (supervised machine learniIn this post, I will explore and configure a few classification algorithms (supervised machine learning). I originally wanted to apply ML and fit some models on diabetes data. The diabetes dataset is one of the most well known data available to ML enthusiasts for their learning purposes.
+After I had started writing my script for the post, I found an &lt;a href=&#34;https://towardsdatascience.com/machine-learning-workflow-on-diabetes-data-part-01-573864fcc6b8&#34; target=&#34;_blank&#34;&gt;article&lt;/a&gt; written by Lahiru Liyanapathirana more than an year ago. It turned out that Lahiru wrote his article with the same intention; i.e. to fit the best suitable model. He did a great job and exhausted a wide range of suitable algorithms from Scikit-learn. However, this did not discourage me! Unlike Lahiru, I will focus only on four classifiers consecutively. Specifically, i.) k-nearest neighbor (k-NN), ii.) logistic regression, iii.) decision tree and iv.) random forest.
+However, and in addition to Lahiru’s article, I will show and introduce a few “new” techniques. First, I will share how and why I handled the missing data differently (this turned out to have a negative impact on performance). Secondly, I will be fitting the model using &lt;code&gt;Pipeline&lt;/code&gt; and &lt;code&gt;SimpleImputer&lt;/code&gt; as the arguments of &lt;code&gt;GridSearchCV&lt;/code&gt;. To achieve the best performance and generality, I will be also tuning the hyperparameters for every model individually. Last but not least, I maintain that accuracy is not and should not be the only criteria when evaluating the model’s performance!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/jiristo/MLdiabetes_inpectplot.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;loading-the-necessary-packages&#34;&gt;Loading the necessary packages&lt;/h1&gt;
+
+&lt;p&gt;I loaded the following packages according to their consecutive roles in the process.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# data handeling
+import pandas as pd
+import numpy as np
+
+# Data preprocessing for ML
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+
+# model traning and testing faciliators
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer 
+from sklearn.preprocessing import StandardScaler
+
+# Overfiitting/underfitting guide
+from sklearn.model_selection import GridSearchCV
+
+# ML models to be explored
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+# Performace measurements
+from sklearn.metrics import classification_report
+
+# Visualization
+import scikitplot as skplt
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from warnings import simplefilter
+# ignore all future warnings
+simplefilter(action=&#39;ignore&#39;, category= FutureWarning)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;exploratory-data-analysis-eda&#34;&gt;Exploratory Data Analysis (EDA)&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df = pd.read_csv(&amp;quot;diabetes_data.csv&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.head()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;pregnancies&lt;/th&gt;
+      &lt;th&gt;glucose&lt;/th&gt;
+      &lt;th&gt;diastolic&lt;/th&gt;
+      &lt;th&gt;triceps&lt;/th&gt;
+      &lt;th&gt;insulin&lt;/th&gt;
+      &lt;th&gt;bmi&lt;/th&gt;
+      &lt;th&gt;dpf&lt;/th&gt;
+      &lt;th&gt;age&lt;/th&gt;
+      &lt;th&gt;diabetes&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;148&lt;/td&gt;
+      &lt;td&gt;72&lt;/td&gt;
+      &lt;td&gt;35&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;33.6&lt;/td&gt;
+      &lt;td&gt;0.627&lt;/td&gt;
+      &lt;td&gt;50&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;85&lt;/td&gt;
+      &lt;td&gt;66&lt;/td&gt;
+      &lt;td&gt;29&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;26.6&lt;/td&gt;
+      &lt;td&gt;0.351&lt;/td&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;183&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;23.3&lt;/td&gt;
+      &lt;td&gt;0.672&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;89&lt;/td&gt;
+      &lt;td&gt;66&lt;/td&gt;
+      &lt;td&gt;23&lt;/td&gt;
+      &lt;td&gt;94&lt;/td&gt;
+      &lt;td&gt;28.1&lt;/td&gt;
+      &lt;td&gt;0.167&lt;/td&gt;
+      &lt;td&gt;21&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;137&lt;/td&gt;
+      &lt;td&gt;40&lt;/td&gt;
+      &lt;td&gt;35&lt;/td&gt;
+      &lt;td&gt;168&lt;/td&gt;
+      &lt;td&gt;43.1&lt;/td&gt;
+      &lt;td&gt;2.288&lt;/td&gt;
+      &lt;td&gt;33&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Looking at the head of the data frame, there are several 0 values. Aside from the label (binominal diabetes), the observation suggests some missing data! I bet if your insulin level was 0 and you would be still reading these lines, on a funny note you probably would be the first undead person interested in ML.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.describe()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;pregnancies&lt;/th&gt;
+      &lt;th&gt;glucose&lt;/th&gt;
+      &lt;th&gt;diastolic&lt;/th&gt;
+      &lt;th&gt;triceps&lt;/th&gt;
+      &lt;th&gt;insulin&lt;/th&gt;
+      &lt;th&gt;bmi&lt;/th&gt;
+      &lt;th&gt;dpf&lt;/th&gt;
+      &lt;th&gt;age&lt;/th&gt;
+      &lt;th&gt;diabetes&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;count&lt;/th&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+      &lt;td&gt;768.000000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;mean&lt;/th&gt;
+      &lt;td&gt;3.845052&lt;/td&gt;
+      &lt;td&gt;120.894531&lt;/td&gt;
+      &lt;td&gt;69.105469&lt;/td&gt;
+      &lt;td&gt;20.536458&lt;/td&gt;
+      &lt;td&gt;79.799479&lt;/td&gt;
+      &lt;td&gt;31.992578&lt;/td&gt;
+      &lt;td&gt;0.471876&lt;/td&gt;
+      &lt;td&gt;33.240885&lt;/td&gt;
+      &lt;td&gt;0.348958&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;std&lt;/th&gt;
+      &lt;td&gt;3.369578&lt;/td&gt;
+      &lt;td&gt;31.972618&lt;/td&gt;
+      &lt;td&gt;19.355807&lt;/td&gt;
+      &lt;td&gt;15.952218&lt;/td&gt;
+      &lt;td&gt;115.244002&lt;/td&gt;
+      &lt;td&gt;7.884160&lt;/td&gt;
+      &lt;td&gt;0.331329&lt;/td&gt;
+      &lt;td&gt;11.760232&lt;/td&gt;
+      &lt;td&gt;0.476951&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;min&lt;/th&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.078000&lt;/td&gt;
+      &lt;td&gt;21.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;25%&lt;/th&gt;
+      &lt;td&gt;1.000000&lt;/td&gt;
+      &lt;td&gt;99.000000&lt;/td&gt;
+      &lt;td&gt;62.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+      &lt;td&gt;27.300000&lt;/td&gt;
+      &lt;td&gt;0.243750&lt;/td&gt;
+      &lt;td&gt;24.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;50%&lt;/th&gt;
+      &lt;td&gt;3.000000&lt;/td&gt;
+      &lt;td&gt;117.000000&lt;/td&gt;
+      &lt;td&gt;72.000000&lt;/td&gt;
+      &lt;td&gt;23.000000&lt;/td&gt;
+      &lt;td&gt;30.500000&lt;/td&gt;
+      &lt;td&gt;32.000000&lt;/td&gt;
+      &lt;td&gt;0.372500&lt;/td&gt;
+      &lt;td&gt;29.000000&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;75%&lt;/th&gt;
+      &lt;td&gt;6.000000&lt;/td&gt;
+      &lt;td&gt;140.250000&lt;/td&gt;
+      &lt;td&gt;80.000000&lt;/td&gt;
+      &lt;td&gt;32.000000&lt;/td&gt;
+      &lt;td&gt;127.250000&lt;/td&gt;
+      &lt;td&gt;36.600000&lt;/td&gt;
+      &lt;td&gt;0.626250&lt;/td&gt;
+      &lt;td&gt;41.000000&lt;/td&gt;
+      &lt;td&gt;1.000000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;max&lt;/th&gt;
+      &lt;td&gt;17.000000&lt;/td&gt;
+      &lt;td&gt;199.000000&lt;/td&gt;
+      &lt;td&gt;122.000000&lt;/td&gt;
+      &lt;td&gt;99.000000&lt;/td&gt;
+      &lt;td&gt;846.000000&lt;/td&gt;
+      &lt;td&gt;67.100000&lt;/td&gt;
+      &lt;td&gt;2.420000&lt;/td&gt;
+      &lt;td&gt;81.000000&lt;/td&gt;
+      &lt;td&gt;1.000000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Based on the summary statistics, &lt;code&gt;min&lt;/code&gt; indicates other features with missing values: i.) &lt;code&gt;glucose&lt;/code&gt; ii.) &lt;code&gt;diastolic&lt;/code&gt; (blood pressure), iii.) &lt;code&gt;triceps&lt;/code&gt;, iv.) &lt;code&gt;bmi&lt;/code&gt;, i.e. $bmi = \frac{body weight}{height}$. Frankly, anyone with 0 blood pressure or bmi (body-mass-index) must be dead. Therefore, it is necessary to clean the data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.info()
+df.isnull().sum()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;class &#39;pandas.core.frame.DataFrame&#39;&amp;gt;
+RangeIndex: 768 entries, 0 to 767
+Data columns (total 9 columns):
+pregnancies    768 non-null int64
+glucose        768 non-null int64
+diastolic      768 non-null int64
+triceps        768 non-null int64
+insulin        768 non-null int64
+bmi            768 non-null float64
+dpf            768 non-null float64
+age            768 non-null int64
+diabetes       768 non-null int64
+dtypes: float64(2), int64(7)
+memory usage: 54.1 KB
+
+
+
+
+
+pregnancies    0
+glucose        0
+diastolic      0
+triceps        0
+insulin        0
+bmi            0
+dpf            0
+age            0
+diabetes       0
+dtype: int64
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are 768 all numeric records with no &lt;code&gt;NaN&lt;/code&gt;. Therefore, &lt;code&gt;0&lt;/code&gt; values in the data represent missing records. How many “zeros” are in each column of the data frame (&lt;code&gt;df&lt;/code&gt;)? I answered the question with a for loop and &lt;code&gt;count_nonzero()&lt;/code&gt; method of NumPy array.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for colname in df.columns[:8]:
+    print(&#39;0s in &amp;quot;{variable}&amp;quot;: {count}&#39;.format(
+        variable=colname,
+        count=np.count_nonzero(df[colname] == 0)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;0s in &amp;quot;pregnancies&amp;quot;: 111
+0s in &amp;quot;glucose&amp;quot;: 5
+0s in &amp;quot;diastolic&amp;quot;: 35
+0s in &amp;quot;triceps&amp;quot;: 227
+0s in &amp;quot;insulin&amp;quot;: 374
+0s in &amp;quot;bmi&amp;quot;: 11
+0s in &amp;quot;dpf&amp;quot;: 0
+0s in &amp;quot;age&amp;quot;: 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In general, there are three approaches in which a data scientist could handle so many missing values and they are as below:
+1.  Delete any observation with missing values, which would result in substantial loss of data.
+2.  Substitute missing values with either mean, median, or mode; which can be a great trade between regression to the mean but keeping the data. However, it is not the best solution when it comes to the substitution of more than half of values in a variable.
+3.  Give up; hell no.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Before dealing with the missing values, let’s examine the data visually&lt;/strong&gt;. Since Lahiru already presented the histograms of the variables, I have decided to expand the insight by examining the box plots. Unlike the histogram, a box plot is a great tool to identify outliers in the data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.drop(&amp;quot;diabetes&amp;quot;,axis=1).boxplot(figsize = [10, 7])
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;./supervised-ML_16_0.png&#34; alt=&#34;png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Obviously, the variables exhibit various distribution patterns. For example, &lt;code&gt;insulin&lt;/code&gt; reaches both the greatest maxima and exhibits many overlapping outliers. Its distribution is right-skewed, and I expect the variable is a very strong predictor for the diagnosis of diabetes. You do not have to be an expert in ML but I do not think the data is the best sample for ML. Firstly, there are a lot of missing values. Secondly, ML is not very effective when it comes to handling outliers.&lt;/p&gt;
+
+&lt;p&gt;Since, I will be using &lt;code&gt;RandomForestClassifier&lt;/code&gt;, there is a way to quickly and visually investigate the importance of these features. This is the tool: &lt;code&gt;skplt.estimators.plot_feature_importances&lt;/code&gt;. It plots the classifier’s feature importance. You can visually inspect how much the variable, relative to other features, correlates to the occurrence of diabetes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2 = df[(df.insulin !=0) &amp;amp; (df.bmi !=0) &amp;amp; (df.pregnancies !=0) &amp;amp; (df.glucose !=0)]
+feature_names = df2.columns[:-1]
+
+randfor = RandomForestClassifier()
+randfor.fit(df2.drop(columns = &amp;quot;diabetes&amp;quot;, axis=1),df2[&amp;quot;diabetes&amp;quot;])
+
+skplt.estimators.plot_feature_importances(randfor, feature_names=feature_names, figsize=(9, 5))
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;./supervised-ML_19_0.png&#34; alt=&#34;png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The result supports my assumption that &lt;code&gt;glucose&lt;/code&gt; is a very strong predictor for the presence of diabetes.&lt;/p&gt;
+
+&lt;h3 id=&#34;data-wrangling&#34;&gt;Data Wrangling&lt;/h3&gt;
+
+&lt;p&gt;I see nothing wrong in deleting a few observations with missing values, however, in my case the approach would result in a loss of too many observations. Lahirru has probably realized the same and therefore deleted only the rows with missing data in &lt;code&gt;glucose&lt;/code&gt;, &lt;code&gt;diastolic&lt;/code&gt;, and &lt;code&gt;bmi&lt;/code&gt;. Therefore, he deleted only a small fraction of all observations.
+To deal with the issue in my own way, I have decided to combine 1.) and 2.) approaches discussed above. I was curious whether I would achieve higher accuracy and precision and what recall would be. For the sake of learning, I even decided to share my experience regardless of the result.
+I designed my approach as follows:
+* Firstly, I decided to delete every row where the number of &lt;code&gt;0s&lt;/code&gt; was greater than 1. On the other hand, I made the assumption which probably does not hold, i.e., pregnancies do not exhibit any missing values and observed &lt;code&gt;0s&lt;/code&gt; are valid records indicating that the person is not pregnant.
+* Secondly, I replaced the remaining missing values with a `mode.
+    * I will handle the operation using SimpleImputer in the Pipeline while fitting the model to the training data set and predicting.&lt;/p&gt;
+
+&lt;p&gt;The following chunk of code summarizes the first step of my approach:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for index,row in df.iterrows():
+    zero_count = row[1:6]
+    if np.count_nonzero(zero_count==0) &amp;gt; 1:
+        df.drop(index, inplace=True)
+
+df.shape
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;(534, 9)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As a result, I deleted only 234 rows. Deleting every observation with a missing value would result in loss of at least 374 rows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for colname in df.columns[:8]:
+    print(&#39;Ex-post0s in &amp;quot;{variable}&amp;quot;: {count}&#39;.format(
+        variable=colname,
+        count=np.count_nonzero(df[colname] == 0)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;Ex-post0s in &amp;quot;pregnancies&amp;quot;: 78
+Ex-post0s in &amp;quot;glucose&amp;quot;: 1
+Ex-post0s in &amp;quot;diastolic&amp;quot;: 0
+Ex-post0s in &amp;quot;triceps&amp;quot;: 0
+Ex-post0s in &amp;quot;insulin&amp;quot;: 140
+Ex-post0s in &amp;quot;bmi&amp;quot;: 1
+Ex-post0s in &amp;quot;dpf&amp;quot;: 0
+Ex-post0s in &amp;quot;age&amp;quot;: 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lastly, one should examine correlations between the variables and label. There are many ways to do so, but I particularly prefer the heat map.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;plt.figure(figsize = [8, 5.5])
+sns.heatmap(df2.corr(), square=False, cmap=&#39;RdYlGn&#39;)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;./supervised-ML_26_0.png&#34; alt=&#34;png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I evaluated the correlations from three perspectives; i.e.,1.) General pattern, 2.) Correlation between &lt;code&gt;diabetes&lt;/code&gt; and other variables, 3.) Correlation amongst all variables.
+1. The data set contains only variables positively correlated with presence of &lt;code&gt;diabetes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Most of the times, the variables exhibit low correlations between themselves and &lt;code&gt;diabetes&lt;/code&gt;. However, &lt;code&gt;glucose&lt;/code&gt; and &lt;code&gt;age&lt;/code&gt; seem to be much more correlated with the target than other variables.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;All the features are mostly uncorrelated. However, you can notice correlations above 0.6 between:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;age&lt;/code&gt; and &lt;code&gt;pregnancies&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;glucose&lt;/code&gt; and &lt;code&gt;insulin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;triceps&lt;/code&gt; and &lt;code&gt;bmi&lt;/code&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I consulted a relative of mine who studies  medicine to take a look at the observations. She confirmed the correlations are in line with her expectancy.
+Finally, I substituted every &lt;code&gt;0&lt;/code&gt; in the data frame (except in the label) with &lt;code&gt;NaN&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;Finally, I substitued  every &lt;code&gt;0&lt;/code&gt; in the data frame (except in the label) with &lt;code&gt;NaN&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.glucose.replace(0, np.nan, inplace = True)
+df.insulin.replace(0, np.nan, inplace = True)
+df.bmi.replace(0, np.nan, inplace = True)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;pre-setting-and-modeling-strategy&#34;&gt;Pre-setting and Modeling Strategy&lt;/h3&gt;
+
+&lt;p&gt;Last but not least, I split the data into labels and 2D arrays for training and testing as is the standard (and not rocket science) approach in ML.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;X = df.drop(columns = &amp;quot;diabetes&amp;quot;, axis=1)
+y = df[&amp;quot;diabetes&amp;quot;]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;imputer&#34;&gt;Imputer&lt;/h4&gt;
+
+&lt;p&gt;Referring back to the second step in my proposed approach, I utilized &lt;code&gt;SimpleImputer&lt;/code&gt; and I passed it into &lt;code&gt;Pipeline&lt;/code&gt;.  The function substitutes &lt;code&gt;NaN&lt;/code&gt; with a chosen value relative to the variable, e.g. &lt;code&gt;mean&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;imp = SimpleImputer(strategy = &amp;quot;most_frequent&amp;quot;, missing_values = np.nan)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;strong&gt;following steps&lt;/strong&gt; summarize my approach to fit a particular model. Moreover, I designed the logic to be perfectly replicable:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;create the list &lt;code&gt;steps_model&lt;/code&gt; containing functions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;imp&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StandardScaler&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;model&lt;/code&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;create &lt;code&gt;pipeline_model&lt;/code&gt; by calling &lt;code&gt;Pipeline&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pass &lt;code&gt;steps_model&lt;/code&gt; as the argument
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create a list &lt;code&gt;parameters_model&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the object contains the parameters of a particular model with ranges of values
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create &lt;code&gt;cv_model&lt;/code&gt; by calling &lt;code&gt;GridSearchCV&lt;/code&gt; (cross validation)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Specify the arguments as follows: &lt;code&gt;pipeline _model , param_grid = parameters_model, scoring = &amp;quot;roc_auc&amp;quot;, cv = 5&lt;/code&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Call &lt;code&gt;cv_model.fit(X_train, y_train)&lt;/code&gt; to train a model&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Predict the label &lt;code&gt;pred_model&lt;/code&gt; by calling &lt;code&gt;cv_model.predict(X_test)&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Evaluate performance by:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cv_model.best_params_(y_test, pred_model)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;accuracy_score(y_test, pred_model)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;classification_report(y_test, pred_model)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;The strategy is identical to all the models that I will attempt to fit, i.e.: i.) k-nearest neighbor (k-NN), ii.) logistic regression, iii.) decision tree and iv.) random forest.&lt;/strong&gt;
+Therefore, , I will discuss the key issues only in &lt;code&gt;I.)k - Nearest Neighbour&lt;/code&gt;. I am intentionally avoiding commenting on other models because the logic remains the same. However,  the list** &lt;code&gt;parameters_model&lt;/code&gt; &lt;strong&gt;should be unique to each classifier because the parameters differ from model to model.&lt;/strong&gt;
+&lt;strong&gt;I will comment on the performance and draw a conclusion in the last part of the article.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;i-k-nearest-neighbour&#34;&gt;I.) K - Nearest Neighbour&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 1.
+steps_knn = [(&amp;quot;imputation&amp;quot;, imp),
+         (&amp;quot;scaler&amp;quot;, StandardScaler()),
+         (&amp;quot;knn&amp;quot;, KNeighborsClassifier())]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 2.
+pipeline_knn = Pipeline(steps_knn)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 3. For KNN, I only specified the range of paramters from 1 to 51.
+parameters_knn = {&amp;quot;knn__n_neighbors&amp;quot;:np.arange(1,51)}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 4.
+cv_knn = GridSearchCV(pipeline_knn, param_grid = parameters_knn, scoring = &amp;quot;roc_auc&amp;quot;, cv = 5 )
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id=&#34;training-the-model-step-5&#34;&gt;Training the Model (Step 5.)&lt;/h6&gt;
+
+&lt;p&gt;By calling &lt;code&gt;cv_model&lt;/code&gt; on the label and 2D data frame, the function utilizes all the steps from &lt;code&gt;steps_model&lt;/code&gt;at first. Specifically, &lt;strong&gt;only and only the data is&lt;/strong&gt;: i.) cleaned (NaNs substituted with the mode), ii.) standardized, iii.) &lt;strong&gt;it can be classified by the classifier&lt;/strong&gt;.   Additionally, the process goes hand in hand with &lt;code&gt;GridSearchCV&lt;/code&gt; what splits &lt;code&gt;X_train&lt;/code&gt; and &lt;code&gt;y_train&lt;/code&gt; into 5 identical data sets and performs cross-validation on each of them. However, each data set is split into different test and train sections. While cross-validating, &lt;code&gt;GridSearchCV&lt;/code&gt; searches for the best parameters specified in &lt;code&gt;parameters_model&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 5.
+cv_knn.fit(X_train, y_train) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;GridSearchCV(cv=5, error_score=&#39;raise-deprecating&#39;,
+       estimator=Pipeline(memory=None,
+     steps=[(&#39;imputation&#39;, SimpleImputer(copy=True, fill_value=None, missing_values=nan,
+       strategy=&#39;most_frequent&#39;, verbose=0)), (&#39;scaler&#39;, StandardScaler(copy=True, with_mean=True, with_std=True)), (&#39;knn&#39;, KNeighborsClassifier(algorithm=&#39;auto&#39;, leaf_size=30, metric=&#39;minkowski&#39;,
+           metric_params=None, n_jobs=None, n_neighbors=5, p=2,
+           weights=&#39;uniform&#39;))]),
+       fit_params=None, iid=&#39;warn&#39;, n_jobs=None,
+       param_grid={&#39;knn__n_neighbors&#39;: array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17,
+       18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+       35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50])},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+       scoring=&#39;roc_auc&#39;, verbose=0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 6.
+pred_knn = cv_knn.predict(X_test)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;measuring-performance-step-7&#34;&gt;Measuring Performance (Step 7.)&lt;/h5&gt;
+
+&lt;p&gt;&lt;code&gt;classification_report&lt;/code&gt; is one of the methods to see a bigger picture of the model’s performance. Since I classified the binary variable relevant to human health, I want to focus on the &lt;code&gt;precision&lt;/code&gt; and  &lt;code&gt;recall&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;precision&lt;/code&gt; is also called &lt;strong&gt;positive predictive value (PPV)&lt;/strong&gt;. Mathematically: $PPV = \frac{TP}{TP+FP}$ It is similar to accuracy, but focuses only on data the model has predicted  to be positive, i.e. &lt;code&gt;diabetes = 1&lt;/code&gt;. Referring to a confusion matrix, &lt;code&gt;precision&lt;/code&gt; of 1 means that there were no false positives.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recall&lt;/code&gt;, also called sensitivity OR True Positive Rate (TPR), answers the question on how complete the results are, i.e. did the model miss any positive classes and to what extent? Mathematically expressed:$TPR = \frac{TP}{TP+FN}$ In our case, low &lt;code&gt;recall&lt;/code&gt; would mean that the model has incorrectly classified a lot of individuals with diabetes as healthy ones.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One should ask, what is the superior metric from the two? &lt;strong&gt;A friend of mine, a data scientist, told me he was asked the same at his interview&lt;/strong&gt;. In fact, it really depends!
+For example, imagine cancer diagnostics, would you rather classify few more patients as false positive and after more precise examination conclude they had no cancer or would you rather let escape the ones with cancer as healthy individuals? &lt;strong&gt;In this particular case, the model should minimize $FN$ in the confusion matrix. Consequently, recall,i.e. TPR, which should be closer to 1.&lt;/strong&gt;
+Lastly, there is always a trade-off between the two negatively correlated metrics.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 7.
+print(&amp;quot;KNN Parameters are: {}&amp;quot;.format(cv_knn.best_params_))
+print(&amp;quot;KNN Accuracy is: {}&amp;quot;.format(accuracy_score(y_test, pred_knn)))
+print(classification_report(y_test, pred_knn))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;KNN Parameters are: {&#39;knn__n_neighbors&#39;: 47}
+KNN Accuracy is: 0.7142857142857143
+              precision    recall  f1-score   support
+
+           0       0.70      0.96      0.81       100
+           1       0.83      0.31      0.45        61
+
+   micro avg       0.71      0.71      0.71       161
+   macro avg       0.76      0.64      0.63       161
+weighted avg       0.75      0.71      0.67       161
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ii-logistic-reg&#34;&gt;II.) Logistic Reg&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Steps 1. &amp;amp; 2.
+pipeline_logreg = Pipeline([(&amp;quot;imputation&amp;quot;, imp),
+         (&amp;quot;scaler&amp;quot;, StandardScaler()),
+         (&amp;quot;logreg&amp;quot;, LogisticRegression())])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 3.
+parameters_logreg = {&amp;quot;logreg__C&amp;quot;:np.arange(0.1, 1.1, 0.1),
+             &amp;quot;logreg__penalty&amp;quot;:(&amp;quot;l1&amp;quot;, &amp;quot;l2&amp;quot;)}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 4.
+cv_logreg = GridSearchCV(pipeline_logreg, param_grid = parameters_logreg, cv = 5 )
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 5.
+cv_logreg.fit(X_train,y_train)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;GridSearchCV(cv=5, error_score=&#39;raise-deprecating&#39;,
+       estimator=Pipeline(memory=None,
+     steps=[(&#39;imputation&#39;, SimpleImputer(copy=True, fill_value=None, missing_values=nan,
+       strategy=&#39;most_frequent&#39;, verbose=0)), (&#39;scaler&#39;, StandardScaler(copy=True, with_mean=True, with_std=True)), (&#39;logreg&#39;, LogisticRegression(C=1.0, class_weight=None, dual=Fa...enalty=&#39;l2&#39;, random_state=None, solver=&#39;warn&#39;,
+          tol=0.0001, verbose=0, warm_start=False))]),
+       fit_params=None, iid=&#39;warn&#39;, n_jobs=None,
+       param_grid={&#39;logreg__C&#39;: array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. ]), &#39;logreg__penalty&#39;: (&#39;l1&#39;, &#39;l2&#39;)},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+       scoring=None, verbose=0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 6.
+pred_logreg = cv_logreg.predict(X_test)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;iii-decision-tree&#34;&gt;III.) Decision Tree&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Steps 1. &amp;amp; 2.
+pipeline_dectree = Pipeline([(&amp;quot;imputation&amp;quot;, imp),
+         (&amp;quot;scaler&amp;quot;, StandardScaler()),
+         (&amp;quot;dectree&amp;quot;, DecisionTreeClassifier())])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 3.
+parameters_dectree = {&#39;dectree__max_features&#39;: [&#39;auto&#39;, &#39;sqrt&#39;, &#39;log2&#39;, None],
+          #&#39;dectree__min_samples_split&#39;: np.arange(2, 15), 
+          #&#39;dectree__min_samples_leaf&#39;:np.arange(2, 15),
+          &#39;dectree__random_state&#39;:[42]}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 4.
+cv_dectree = GridSearchCV(pipeline_dectree, param_grid = parameters_dectree, cv = 5 )
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 5.
+cv_dectree.fit(X_train,y_train)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;GridSearchCV(cv=5, error_score=&#39;raise-deprecating&#39;,
+       estimator=Pipeline(memory=None,
+     steps=[(&#39;imputation&#39;, SimpleImputer(copy=True, fill_value=None, missing_values=nan,
+       strategy=&#39;most_frequent&#39;, verbose=0)), (&#39;scaler&#39;, StandardScaler(copy=True, with_mean=True, with_std=True)), (&#39;dectree&#39;, DecisionTreeClassifier(class_weight=None, criterion=&#39;gini&#39;, max_depth=None,
+            ...      min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter=&#39;best&#39;))]),
+       fit_params=None, iid=&#39;warn&#39;, n_jobs=None,
+       param_grid={&#39;dectree__max_features&#39;: [&#39;auto&#39;, &#39;sqrt&#39;, &#39;log2&#39;, None], &#39;dectree__random_state&#39;: [42]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+       scoring=None, verbose=0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Step 6.
+pred_dectree = cv_dectree.predict(X_test)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;iv-random-forest&#34;&gt;IV.) Random Forest&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;pipeline_randfst = Pipeline([(&amp;quot;imputation&amp;quot;, imp),
+         (&amp;quot;scaler&amp;quot;, StandardScaler()),
+         (&amp;quot;randfst&amp;quot;, RandomForestClassifier())])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;paraparameters_randfst = {&amp;quot;randfst__n_estimators&amp;quot;: np.arange(5,200,5),
+                          &amp;quot;randfst__criterion&amp;quot;:[&#39;gini&#39;,&#39;entropy&#39;],
+                          #&amp;quot;randfst__n_jobs&amp;quot;:[-1],
+                          &amp;quot;randfst__random_state&amp;quot;:[42]}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;cv_randfst = GridSearchCV(pipeline_randfst, param_grid = paraparameters_randfst, cv = 5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;cv_randfst.fit(X_train, y_train)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;GridSearchCV(cv=5, error_score=&#39;raise-deprecating&#39;,
+       estimator=Pipeline(memory=None,
+     steps=[(&#39;imputation&#39;, SimpleImputer(copy=True, fill_value=None, missing_values=nan,
+       strategy=&#39;most_frequent&#39;, verbose=0)), (&#39;scaler&#39;, StandardScaler(copy=True, with_mean=True, with_std=True)), (&#39;randfst&#39;, RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
+            ...obs=None,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False))]),
+       fit_params=None, iid=&#39;warn&#39;, n_jobs=None,
+       param_grid={&#39;randfst__n_estimators&#39;: array([  5,  10,  15,  20,  25,  30,  35,  40,  45,  50,  55,  60,  65,
+        70,  75,  80,  85,  90,  95, 100, 105, 110, 115, 120, 125, 130,
+       135, 140, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195]), &#39;randfst__criterion&#39;: [&#39;gini&#39;, &#39;entropy&#39;], &#39;randfst__random_state&#39;: [42]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+       scoring=None, verbose=0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;pred_randfst = cv_randfst.predict(X_test)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-7-best-model-selection&#34;&gt;Step 7. &amp;amp;  Best Model Selection&lt;/h3&gt;
+
+&lt;p&gt;I already mentioned &lt;code&gt;precision&lt;/code&gt; and &lt;code&gt;recall&lt;/code&gt; but did explain &lt;code&gt;accuracy&lt;/code&gt;. In fact, &lt;code&gt;accuracy&lt;/code&gt; may  not be the best parameter for choosing the right model. Consider test data with 100 individuals from which 99 subjects are healthy ones and only 1 individual has diabetes. Also, assume the model successfully classified 99 healthy people but completely failed to classify the one individual with diabetes.&lt;/p&gt;
+
+&lt;p&gt;Gived that $accuracy = \frac{TP + TN} {TP + TN + FP + FN}$, than the accuracy would be 99%. However, the algorithm missed 100% individuals in the positive class.&lt;/p&gt;
+
+&lt;p&gt;The following code displays the best parameters and accuracy of every classifier I fit. Moreover, &lt;code&gt;classification_report&lt;/code&gt; displays the table with &lt;code&gt;recall&lt;/code&gt; and &lt;code&gt;precision&lt;/code&gt;, so you can effectively evaluate each model.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;print(&amp;quot;KNN Parameters are: {}&amp;quot;.format(cv_knn.best_params_))
+print(&amp;quot;KNN Accuracy is: {}&amp;quot;.format(accuracy_score(y_test, pred_knn)))
+print(classification_report(y_test, pred_knn))
+
+print(&amp;quot;Log. reg Parameters are: {}&amp;quot;.format(cv_logreg.best_params_))
+print(&amp;quot;Log. reg accuracy is: {}&amp;quot;.format(accuracy_score(y_test, pred_logreg)))
+print(classification_report(y_test, pred_logreg))
+
+print(&amp;quot;Dec. tree Parameters are: {}&amp;quot;.format(cv_dectree.best_params_))
+print(&amp;quot;Dec. tree accuracy is: {}&amp;quot;.format(accuracy_score(y_test, pred_dectree)))
+print(classification_report(y_test, pred_dectree))
+
+print(&amp;quot;Rand. forest Parameters are: {}&amp;quot;.format(cv_randfst.best_params_))
+print(&amp;quot;Rand. forest accuracy is: {}&amp;quot;.format(accuracy_score(y_test, pred_randfst)))
+print(classification_report(y_test, pred_randfst))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;KNN Parameters are: {&#39;knn__n_neighbors&#39;: 47}
+KNN Accuracy is: 0.7142857142857143
+              precision    recall  f1-score   support
+
+           0       0.70      0.96      0.81       100
+           1       0.83      0.31      0.45        61
+
+   micro avg       0.71      0.71      0.71       161
+   macro avg       0.76      0.64      0.63       161
+weighted avg       0.75      0.71      0.67       161
+
+Log. reg Parameters are: {&#39;logreg__C&#39;: 0.1, &#39;logreg__penalty&#39;: &#39;l2&#39;}
+Log. reg accuracy is: 0.7639751552795031
+              precision    recall  f1-score   support
+
+           0       0.76      0.91      0.83       100
+           1       0.78      0.52      0.63        61
+
+   micro avg       0.76      0.76      0.76       161
+   macro avg       0.77      0.72      0.73       161
+weighted avg       0.77      0.76      0.75       161
+
+Dec. tree Parameters are: {&#39;dectree__max_features&#39;: None, &#39;dectree__random_state&#39;: 42}
+Dec. tree accuracy is: 0.6708074534161491
+              precision    recall  f1-score   support
+
+           0       0.74      0.73      0.73       100
+           1       0.56      0.57      0.57        61
+
+   micro avg       0.67      0.67      0.67       161
+   macro avg       0.65      0.65      0.65       161
+weighted avg       0.67      0.67      0.67       161
+
+Rand. forest Parameters are: {&#39;randfst__criterion&#39;: &#39;entropy&#39;, &#39;randfst__n_estimators&#39;: 70, &#39;randfst__random_state&#39;: 42}
+Rand. forest accuracy is: 0.7453416149068323
+              precision    recall  f1-score   support
+
+           0       0.74      0.91      0.82       100
+           1       0.76      0.48      0.59        61
+
+   micro avg       0.75      0.75      0.75       161
+   macro avg       0.75      0.69      0.70       161
+weighted avg       0.75      0.75      0.73       161
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, the logistic model performs with the highest accuracy of 0.77 meaning the model predicted 77% of cases correctly. However, you do not want to send any patient home with diabetes as if she was healthy. From this perspective, you should choose the model with &lt;code&gt;recall&lt;/code&gt; close to 1. Since, the logistic model has &lt;code&gt;recall = 0.57&lt;/code&gt;, you may consider to decide for the &lt;strong&gt;decision tree classifier&lt;/strong&gt;. Considering overall accuracy, the model performs by 10 p.p. worse. However, it has the largest &lt;code&gt;recall&lt;/code&gt; from all the considered classifiers. Administering this model, you would have sent home the lowest possible number of patients with diabetes at the cost of reexamining greater number of healthy individuals.&lt;/p&gt;
+
+&lt;p&gt;I am not arguing &lt;strong&gt;decision tree&lt;/strong&gt; is the best possible model for such type of data. Actually, I do not assume someone uses this particular branch of machine learning when it comes to health. I am aware of cases where &lt;strong&gt;deep learning and neural network models&lt;/strong&gt; are used instead. For example, a visual algorithm can detect cancer when it is trained on pictures of human cells.&lt;/p&gt;
+
+&lt;p&gt;The point I am trying to make is that accuracy is not the best and only one parameter for model selection. There are many factors one must consider when a model needs to be selected.&lt;/p&gt;
+
+&lt;h4 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h4&gt;
+
+&lt;p&gt;I exI explained and demonstrated how important is it to explore your data before modeling. Specifically, there are more possibilities of how missing values can be recorded. To see a bigger picture of your data, it is important to ask yourself some basic questions, e.g. “can someone have 0 blood pressure?”. Once you identify missing values in your data, you should decide on how to deal with them. Would you delete every record with a missing value or would you substitute it with a mean, or would you try to be efficient and keep as much data as possible? I also put forth my point of view on how to find the feature&amp;rsquo;s importance on the final outcome. Finally, I evaluated the models based on &lt;code&gt;recall&lt;/code&gt; rather than on accuracy because &lt;code&gt;recall&lt;/code&gt; close to 1 minimizes the number of cases when a patient with either diabetes or cancer would be classified and treated incorrectly.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

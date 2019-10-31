@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recommender System on Jiri Stodulka</title>
+    <link>https://jiristodulka.com/%60/tags/recommender-system/</link>
+    <description>Recent content in Recommender System on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    <lastBuildDate>Fri, 13 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://jiristodulka.com/%60/tags/recommender-system/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MLP, AE, RNN</title>
+      <link>https://jiristodulka.com/%60/project/13th-sep-2019/</link>
+      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/13th-sep-2019/</guid>
+      <description>&lt;p&gt;Returned to Toronto from Europe on Tuesday. I have been recently studying amazing review  of recent efforts on deep learning based recommender systems: &lt;strong&gt;Deep Learning based Recommender System: A Surve and New Perspectives&lt;/strong&gt; published by Shuai Zhang et al. So why DL based recsys? Firstly, DL models are end-to-end differentiable, secondly they provide suitable inductive biases. Therefore, DL models can exploit inherent structures if there are any.
+I particularly like MLP for its simplicity and capability to learn hierarchical features.
+AE are oslo used in DL based recsys as unsupervised model reducing dimensionality in a similar manner as PCA. AE can be used both for for item-based and user-based models.&lt;/p&gt;
+
+&lt;p&gt;AE is also powerful in learning feature representation, so it is possible to learn feature representations for user/item content features.
+Another interesting type of AE is Collaborative Deep Learning (CDL). It is a hierarchical model Bayesian model with stacked denoising AE (SDEAE). CDL has two components: i.) perception component (deep neural net.: probabilistic interpretation of of ordinal SDAE ) and ii.) task-specific component (PMF).
+Collaborative Deep Learning is a pairwise framework for top-n recommendations.  Research shows that it can even outperform CDL when it comes to ranking predictions. It outputs a confidence value $C^{-1}_{uij}$ of how much a user &lt;em&gt;u&lt;/em&gt; preferes item &lt;em&gt;i&lt;/em&gt; over &lt;em&gt;j&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;RNN also get my attention becase I see its usage in time-series because of variants such as LSTM. More interestingly, DRL is exciting because of a possibility to make recommendations based on on trial-and-error paradigm.
+For sequential modeling,  RNN (interval memory)  and CNN (filters sliding along with time, i.e. kernel). Sequential signals are important for mining temporal dynamics of user behaviour and time evolution.&lt;/p&gt;
+
+&lt;p&gt;When it comes to activation functions, &lt;strong&gt;ReLu should be one to go for!&lt;/strong&gt; Unlike in &lt;strong&gt;sigmoid&lt;/strong&gt; where vanishing gradient may occur and its output is not zero centered, ReLu is always positive with the slope of 1. If the neurons die, one may use leaky ReLu which output may be even negative (but close to 0!). &lt;strong&gt;Tanh&lt;/strong&gt; gives a zero centered output but again, vanishing gradient may arise as well.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deep Learning based Recommender System</title>
+      <link>https://jiristodulka.com/%60/project/8th-sep-2019/</link>
+      <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/8th-sep-2019/</guid>
+      <description>&lt;p&gt;Called with Omar yesterday. He will finish editing my post about matrix factorization recommender system in a week. I really need to publish it. It&amp;rsquo;s been already three months from my last post. Definitely, I will follow up with smth. regarding DL. There is good repository on Wikipedia: &lt;strong&gt;List of datasets for machine-learning research&lt;/strong&gt;. Now it&amp;rsquo;s time to focus on &amp;ldquo;Deep Learning based Recommender System: A Survey and New Perspectives&amp;rdquo; by Zhang et al.
+Wikipedia: RNN (recurrent neural network) is a class of artificial neural networks where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior. Unlike feedforward neural networks, RNNs can use their internal state (memory) to process sequences of inputs. This makes them applicable to tasks such as unsegmented, connected handwriting recognition[1] or speech recognition. Such network has over-performed standard recsys. I more and more think I should focus on techniques to build a recommender system based on DL and RL.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

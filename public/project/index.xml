@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Jiri Stodulka</title>
+    <link>https://jiristodulka.com/%60/project/</link>
+    <description>Recent content in Projects on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    <lastBuildDate>Mon, 30 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://jiristodulka.com/%60/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>COBRA (DRL)</title>
+      <link>https://jiristodulka.com/%60/project/30th-sep-2019/</link>
+      <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/30th-sep-2019/</guid>
+      <description>&lt;p&gt;Research article available eher: &lt;a href=&#34;https://arxiv.org/abs/1905.09275&#34; target=&#34;_blank&#34;&gt;https://arxiv.org/abs/1905.09275&lt;/a&gt;
+&lt;img src=&#34;./featured.png&#34; alt=&#34;png&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MLP, AE, RNN</title>
+      <link>https://jiristodulka.com/%60/project/13th-sep-2019/</link>
+      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/13th-sep-2019/</guid>
+      <description>&lt;p&gt;Returned to Toronto from Europe on Tuesday. I have been recently studying amazing review  of recent efforts on deep learning based recommender systems: &lt;strong&gt;Deep Learning based Recommender System: A Surve and New Perspectives&lt;/strong&gt; published by Shuai Zhang et al. So why DL based recsys? Firstly, DL models are end-to-end differentiable, secondly they provide suitable inductive biases. Therefore, DL models can exploit inherent structures if there are any.
+I particularly like MLP for its simplicity and capability to learn hierarchical features.
+AE are oslo used in DL based recsys as unsupervised model reducing dimensionality in a similar manner as PCA. AE can be used both for for item-based and user-based models.&lt;/p&gt;
+
+&lt;p&gt;AE is also powerful in learning feature representation, so it is possible to learn feature representations for user/item content features.
+Another interesting type of AE is Collaborative Deep Learning (CDL). It is a hierarchical model Bayesian model with stacked denoising AE (SDEAE). CDL has two components: i.) perception component (deep neural net.: probabilistic interpretation of of ordinal SDAE ) and ii.) task-specific component (PMF).
+Collaborative Deep Learning is a pairwise framework for top-n recommendations.  Research shows that it can even outperform CDL when it comes to ranking predictions. It outputs a confidence value $C^{-1}_{uij}$ of how much a user &lt;em&gt;u&lt;/em&gt; preferes item &lt;em&gt;i&lt;/em&gt; over &lt;em&gt;j&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;RNN also get my attention becase I see its usage in time-series because of variants such as LSTM. More interestingly, DRL is exciting because of a possibility to make recommendations based on on trial-and-error paradigm.
+For sequential modeling,  RNN (interval memory)  and CNN (filters sliding along with time, i.e. kernel). Sequential signals are important for mining temporal dynamics of user behaviour and time evolution.&lt;/p&gt;
+
+&lt;p&gt;When it comes to activation functions, &lt;strong&gt;ReLu should be one to go for!&lt;/strong&gt; Unlike in &lt;strong&gt;sigmoid&lt;/strong&gt; where vanishing gradient may occur and its output is not zero centered, ReLu is always positive with the slope of 1. If the neurons die, one may use leaky ReLu which output may be even negative (but close to 0!). &lt;strong&gt;Tanh&lt;/strong&gt; gives a zero centered output but again, vanishing gradient may arise as well.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deep Learning based Recommender System</title>
+      <link>https://jiristodulka.com/%60/project/8th-sep-2019/</link>
+      <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/8th-sep-2019/</guid>
+      <description>&lt;p&gt;Called with Omar yesterday. He will finish editing my post about matrix factorization recommender system in a week. I really need to publish it. It&amp;rsquo;s been already three months from my last post. Definitely, I will follow up with smth. regarding DL. There is good repository on Wikipedia: &lt;strong&gt;List of datasets for machine-learning research&lt;/strong&gt;. Now it&amp;rsquo;s time to focus on &amp;ldquo;Deep Learning based Recommender System: A Survey and New Perspectives&amp;rdquo; by Zhang et al.
+Wikipedia: RNN (recurrent neural network) is a class of artificial neural networks where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior. Unlike feedforward neural networks, RNNs can use their internal state (memory) to process sequences of inputs. This makes them applicable to tasks such as unsegmented, connected handwriting recognition[1] or speech recognition. Such network has over-performed standard recsys. I more and more think I should focus on techniques to build a recommender system based on DL and RL.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Embedding Layers &amp; Shared Models (Keras)</title>
+      <link>https://jiristodulka.com/%60/project/2nd-sep-2019/</link>
+      <pubDate>Mon, 02 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/2nd-sep-2019/</guid>
+      <description>&lt;p&gt;Keras models can have both trainable and fixed parameters. Fewer trainable parameters are less flexibel but at the same time less likely to overfit. Trainable parameters are usually in &lt;strong&gt;dense&lt;/strong&gt; layers. Due to an embedding layer in the model (input) and dense layer (with e.g. 4 parameters), the model has much more trainable parameters. &lt;strong&gt;Embedding layers often add a large number of trainable parameters into the model&lt;/strong&gt; (be cautious of overfitting). Embedding layer maps integers to floats: each unique value of of the embedding input gets a parameter for its output.
+&lt;strong&gt;Shared models&lt;/strong&gt; work the same way as shared layers, i.e. I can put together a sequence of layers to define a custom model. Then, it&amp;rsquo;s possible to share the entire model in exactly the same way I would share a layer.
+&lt;strong&gt;Model stacking&lt;/strong&gt; is using model&amp;rsquo;s prediction as input to another model. It&amp;rsquo;s one of the most sophisticated way of combining models. When stacking it&amp;rsquo;s important to use different datasets for each model.
+It&amp;rsquo;s also possible to create single model for classification and regression with Keras. In ordet to do that, I use &lt;code&gt;activation = &amp;quot;sigmoid&amp;quot;&lt;/code&gt; in output layer. With two outputs model&amp;rsquo;s each output requires its own loss function passed as a list (e.g. different loss functions for a classification and regression models). Optimzer, e.g. &lt;code&gt;&amp;quot;adam&amp;quot;&lt;/code&gt;, can be passed only once for the both model&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Shared Layers (Keras)</title>
+      <link>https://jiristodulka.com/%60/project/1st-sep-2019/</link>
+      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/1st-sep-2019/</guid>
+      <description>&lt;p&gt;Learned about &lt;strong&gt;shared layers&lt;/strong&gt; allowed by Keras API. They allow me to define an operation and then apply the exact same operation, with the exact same weights on different inputs. Can by used for time-series as well.
+I understand, defining multiple input layers for multiple entities (e.g. customer IDs) &lt;strong&gt;allows me to specify&lt;/strong&gt; how the data from each entity will be used differently later in this model. Now, I see an applied case in UFC. In data with UFC result for every match and fighter, I can teach the model to learn strength of every single fighter. Such that if any pair of fighters plays each other, I could predict the score, even if those two fighters have never fought before.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dense Layer (Keras)</title>
+      <link>https://jiristodulka.com/%60/project/29th-aug-2019/</link>
+      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/29th-aug-2019/</guid>
+      <description>&lt;p&gt;Continuing with DL. Both theory and practice. When it comes to DL network: dense layers learn a &lt;strong&gt;weight matrix&lt;/strong&gt;, where the &lt;strong&gt;first dimension of the matrix&lt;/strong&gt; is the &lt;strong&gt;dimension of the input data&lt;/strong&gt;, and the second dimension is the dimension of the output data.
+Defining &lt;code&gt;tensor&lt;/code&gt; output in one line&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from keras.layers import Input, Dense
+input_tensor = Input(shape=(1,))
+output_tensor = Dense(1)(input_tensor)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When it comes to loss function, &lt;strong&gt;mean absolute error&lt;/strong&gt; is a good general function for a &lt;em&gt;keras&lt;/em&gt; model. It&amp;rsquo;s less sensitive function to outliers. however, one can use &lt;code&gt;mse&lt;/code&gt; which would be equivalent to OLS. In DL, $y^{\hat} = mx + b$ where $m$ is the weight of the dense layer and $b$ is the bias of the dense layer. Mean squared error is a common loss function and will optimize for predicting the mean, as is done in OLS. Mean absolute error optimizes for the median and is used in quantile regression.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Softmax</title>
+      <link>https://jiristodulka.com/%60/project/28th-aug-2019/</link>
+      <pubDate>Wed, 28 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/28th-aug-2019/</guid>
+      <description>&lt;p&gt;Could not sleep because of a jetlag. So I started playing with compiling DL model. In binary classification I use softmax function for probability distribution. However, softmax is not zero centered! The neuron always fires. I am still continuing with Keras and plying with different parameters in fine-tuning my medel. I.e. for optimizer I use &amp;ldquo;adam&amp;rdquo; and loss function compute through &amp;ldquo;class entropy&amp;rdquo;. I am actually thinking I should start using PyTorch, instead NumPy, for running computations on GPU and PySpark (as once Dwight Gunning from FINRA has recommended me while having a meeting).e even hundereds or thousand nodes in a layer (Tensorflow can take care of that).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Activation Function ReLu</title>
+      <link>https://jiristodulka.com/%60/project/27th-aug-2019/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/27th-aug-2019/</guid>
+      <description>&lt;p&gt;Activation function: Inputs (variables or outputs of neurons) get weights. If the &lt;strong&gt;dot product&lt;/strong&gt; of these weights is higher than certain value, the activation function simulata if the neuros fire or not. Activation function is close to a sigmoid function (e.g. square root function), so the output is between 0 and 1. &lt;strong&gt;Activation function captures non-linearities&lt;/strong&gt;. Classification: Dog (0.71) or cat(0.29), i.e. 71% confidence the object is a dog. So why to use DL instead of linear regression? DL models allow interactions (no assumption of no multicollinearity). Cool thing about NNs is that I don&amp;rsquo;t need to specify interactions. They are captured by the model itself. ReLu is actually very simple:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def relu(input):
+    &#39;&#39;&#39;Defines ReLu activation function: Input node dot product&#39;&#39;&#39;
+    # Calculate the value for the output of the relu function: output
+    output = max(0, input)
+
+    # Return the value just calculated
+    return(output)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(relu(5))
+#5
+print(relu(-10))
+#0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Deep networks internally build representations of patterns in the data. Partially replace the need for feature engineering. Subsequent layers build increasingly sophisticated
+representations of raw data. Gradient descent is loss vs weight (I want to minimize the loss). Learned about back propagation. I need to recap it once (or probably several times) more. At least, I understand the analogy between a neural network  and brain neuron. It fires back and forward! DC has a great tutorial by Dan Becker (Data Scientist at at Google).&lt;/p&gt;
+
+&lt;p&gt;Keras: Dense layer means all the nodes in the current layer connect to all the nodes in the previous layer. There may be even hundereds or thousand nodes in a layer (Tensorflow can take care of that).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Advanced Deep Learning with Keras in Python</title>
+      <link>https://jiristodulka.com/%60/project/23rd-aug-2019/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/23rd-aug-2019/</guid>
+      <description>&lt;p&gt;I am geting back to DataCamp. I&amp;rsquo;ve figured out that following relevant tracks (e.g. DL for now) with combination of reading articles and watching videos is one of the most effective learning paths when the starting point and direction are unknown. I also connected and had a call with two other data scientist. Daniel&amp;rsquo;s from Ottawa, has a PhD in Computer Sciences. It turned out he knows the same folks in Toronto, mostly through following AISC. He knows Amir and Toronto ML Channel on Slack. On top of that, he is an expert in DL. So great connection! Diven is Omar&amp;rsquo;s apprentice as I am. He works on the same recsys utilizing Surprise and is moving to Toronto soon. We agreed on some strategy how to start building DL recsys together. Finally, I bought the ticket for reinforcement learning workshop. Reinforcement deep learning recommender system?! Hell, I am going for that!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dashborads and LSTM</title>
+      <link>https://jiristodulka.com/%60/project/22st-aug-2019/</link>
+      <pubDate>Thu, 22 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/22st-aug-2019/</guid>
+      <description>&lt;p&gt;Called with a colleague, Mirek. Mirek uses Azur, he showed me to run it. Pretty simple compared to AWS. Anyway, Mirek has built a TS model (with ARIMAX) predicting gold price. He is trying to challange his model with DL; specifically LSTM. We discussed parameters like batch size and number of samples. Quite exciting! I&amp;rsquo;ve once  read the best performance on TS data is usually achieved with combination of TS and DL models. On top of that, Mirek shared with me Bokeh library for dashboards. He says it&amp;rsquo;s simpler than Pyviz. I need to give it a try&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Amazon Web Services</title>
+      <link>https://jiristodulka.com/%60/project/21st-aug-2019/</link>
+      <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/21st-aug-2019/</guid>
+      <description>&lt;p&gt;I am going for AWS because of its popularity (motivation: industry expectation). I regret it&amp;hellip; I lost all my day while trying to figure out everything. I closed AWS documentation and opened Deep Learning. I sweared I will read the entire book chapter by chapter. Application is what does matter but first I need to build on a solid &amp;ldquo;skeleton&amp;rdquo;, i.e. theory. I learned about different distribution functions and their application. E.g. mass and marginal distribution functions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Starting with Deep Learning</title>
+      <link>https://jiristodulka.com/%60/project/20thaug2019/</link>
+      <pubDate>Tue, 20 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/20thaug2019/</guid>
+      <description>&lt;p&gt;Starting with DL which I want to implement for a recommender system. This time I will need to use external GPU. Will probably go for Azure or AWS. I am exploring codes for embeddings and ReLU, Leaky ReLU, Parametric ReLU, Exponential Linear (ELU, SELU) activation functions. The rectified linear activation function (called ReLU) has been shown to lead to very high-performance networks. This function takes a single number as an input, returning 0 if the input is negative, and the input if the input is positive. As always, the challenge is to find the starting point. To figure it out, it would be best to start with fast.ai&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

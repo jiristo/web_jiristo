@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.3.1">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Jiri Stodulka">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this post, I will analyze Mayor Crime Indicators in Toronto in years from 2014 to 2018. I obtained the publicly available data set from the Toronto Police Service. I will visually inspect the crime scene in the City. Specifically, I will use the Matplot library to demonstrate the composition of assaults. Additionally, I will map the most criminal neighborhoods on the map while utilizing both the MarkerCluster and HeatMap as plugins of folium package.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.a9a796b4dba28c78fc94d2550173437e.css">
+
+  
+
+  
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@jiristo">
+  <meta property="twitter:creator" content="@jiristo">
+  
+  <meta property="og:site_name" content="InspectPlot">
+  <meta property="og:url" content="/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/">
+  <meta property="og:title" content="Toronto Crime and Folium | InspectPlot">
+  <meta property="og:description" content="In this post, I will analyze Mayor Crime Indicators in Toronto in years from 2014 to 2018. I obtained the publicly available data set from the Toronto Police Service. I will visually inspect the crime scene in the City. Specifically, I will use the Matplot library to demonstrate the composition of assaults. Additionally, I will map the most criminal neighborhoods on the map while utilizing both the MarkerCluster and HeatMap as plugins of folium package."><meta property="og:image" content="/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2019-05-19T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2019-05-19T00:00:00&#43;00:00">
+  
+
+  
+
+
+  
+
+
+
+
+
+  <title>Toronto Crime and Folium | InspectPlot</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">InspectPlot</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">Toronto Crime and Folium</h1>
+
+  
+
+  
+    
+
+
+
+<meta content="2019-05-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2019-05-19 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>May 19, 2019</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/python/">Python</a></span>
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/&amp;text=Toronto%20Crime%20and%20Folium" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/&amp;t=Toronto%20Crime%20and%20Folium" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Toronto%20Crime%20and%20Folium&amp;body=/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/&amp;title=Toronto%20Crime%20and%20Folium" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Toronto%20Crime%20and%20Folium%20/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2019-06-27-toronto-crime-and-folium/toronto-crime-and-folium/&amp;title=Toronto%20Crime%20and%20Folium" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>In this post, I will analyze Mayor Crime Indicators in Toronto in years from 2014 to 2018. I obtained the publicly available data set from the Toronto Police Service. I will visually inspect the crime scene in the City. Specifically, I will use the Matplot library to demonstrate the composition of assaults. Additionally, I will map the most criminal neighborhoods on the map while utilizing both the <code>MarkerCluster</code> and <code>HeatMap</code> as <code>plugins</code> of <code>folium</code> package. Examining criminal behavior on the map shows the downtown as the area with the highest concentration of crime. On top of that, criminal neighborhoods can be easily clustered. Then, one can see that areas alongside the major routes exhibit high criminal activity as well.</p>
+
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import re #regular expression matching operations
+
+import folium #maping crime on the map
+from folium.plugins import HeatMap, MarkerCluster #making maping visually appealing
+
+%matplotlib inline
+</code></pre>
+
+<h2 id="loading-data">Loading Data</h2>
+
+<p>I downloaded the original csv file <code>MCI_2014_to_2018.csv</code>from <a href="http://data.torontopolice.on.ca/datasets/mci-2014-to-2018" target="_blank">http://data.torontopolice.on.ca/datasets/mci-2014-to-2018</a>. I preprocessed the data and selected only the variables of my interest and saved the file as <code>toronto_crime.csv</code>.</p>
+
+<pre><code class="language-python">crime = pd.read_csv('toronto_crime.csv')
+crime = crime.drop(columns = &quot;Unnamed: 0&quot;)
+</code></pre>
+
+<p>The original data set already breaks down <code>occurrencedate</code> (yyy-MM-dd HH&rdquo;T&rdquo;:mm:ss.SSS&rsquo;Z&rsquo;) into marginal time categories, i.e. year, month, hour, etc. However, I wanted to show how easily Python and <code>panadas</code> can generate these variables from the string format.</p>
+
+<pre><code class="language-python">crime[&quot;datetime&quot;] = pd.to_datetime(crime[&quot;occurrencedate&quot;])
+
+crime['year'] = crime['datetime'].dt.year
+crime['month'] = crime['datetime'].dt.month
+crime['dayofweek'] = crime['datetime'].dt.dayofweek
+crime['hour'] = crime['datetime'].dt.hour
+</code></pre>
+
+<pre><code class="language-python">crime[&quot;MCI&quot;] = crime[&quot;MCI&quot;].astype('category')
+</code></pre>
+
+<p>I am not presenting EDA of the date in this post. If you wish to see some of the methods I did, I recommend you to read my previous post <strong>Machine Learning and Diabetes</strong> where I disclose some of the frequently used commands.</p>
+
+<h1 id="crime-composition-in-toronto">Crime Composition in Toronto</h1>
+
+<p>Technically, visualizing the crime composition in the City was the most difficult part of my work. Initially, my aim was to make the following visulization of every <code>MCI</code>. However, as you can see in the following code, this would take a lot of space. Therefore, I have decided to focus only on:
+* Crime in general
+* Different categories of assault in <code>offence</code>.</p>
+
+<p>Additionally, I wanted to share an appealing visualization rather tham pie charts (I originally have started with). I admit, I spend some time and had a lot of fun while playing with the following code. <strong>The whole objective with preprocessing data was to store values and labels separetelly in the same order</strong></p>
+
+<p>Therefore, the following section has three parts:
+1. Generating values and labels for Crime
+2. Generating values and labels for Assaluts
+3. <strong>Visualizing Crime and Assaults</strong></p>
+
+<p>Since I am obsessed with writting neat and clean codes, at least I always do my best, I wonder if you can come with a more efficient solution? If so, can you share it with me?</p>
+
+<h2 id="1-values-and-labels-crime">1. Values and Labels: Crime</h2>
+
+<p>Obtaining values and labels from crime was the easiest step and I do not think I need to explain the logic behind it. The process is as simple as &ldquo;ask for values&rdquo; and &ldquo;ask for labels&rdquo;.</p>
+
+<pre><code class="language-python">values_crime = crime[&quot;MCI&quot;].value_counts() 
+labels_crime = crime[&quot;MCI&quot;].value_counts().keys()
+</code></pre>
+
+<h2 id="2-values-and-labels-assault">2. Values and Labels: Assault</h2>
+
+<p>However, coming up with the values and labels for assaults was a different story and it took me a while before I came up with and realized the <strong>Step 3.</strong> .</p>
+
+<ul>
+<li><p><strong>Step 1:</strong> I filtered for rows with any form of &ldquo;ASSAULT&rdquo; in <code>offence</code> variable. I called the filtered df <code>crime_assault</code>. You can notice that I specified the selection to be case insensitive by <code>flags=re.IGNORECASE</code>.</p></li>
+
+<li><p><strong>Step 2:</strong> I counted the values in <code>crime_assault</code>, i.e. &ldquo;How many times each criminal act classified as assault appears in the data&rdquo;.</p></li>
+
+<li><p><strong>Step 3:</strong> This step was actually not necessary. However, when you look at the chart below, you should notice the category <code>other</code>. In fact, it consolidates the other three types of assaults: *Peace Officer Wpn/Cbh, Force/Thrt/Impede, and Aggravated Assault Avails Pros in the range from 251 to 12. As you can see, the values are marginal (compared to Assaults of 62194). Since the categories were overlaying in the initial plot, I have decided to consolidate them. I iterated over the rows in <code>values_assault</code> with the aim to <strong>rename</strong> the key of the value in <code>offence</code> smaller than 1500. I had to save it as <code>pd.DataFrame</code> object because of the following step.</p></li>
+
+<li><p><strong>Step 4:</strong> Since the purpose of the whole procedure was to plot the data with labels and values, it was essential to store the values in the exact index order as the labels: <code>sort_values(&quot;offence&quot;,ascending=False)</code>. In this step, I was grouping the data according to <code>index</code>. It is because <code>values_assault</code> was originally a Series object. However, after I stored it as <code>pd.DataFrame</code> object, I had to use <code>index</code> because <code>key</code> is strictly associated with Series objects.</p></li>
+
+<li><p><strong>Step 5:</strong> I saved the index values, i.e. the categories of assault, as strings.</p></li>
+</ul>
+
+<p><strong>To wrap it up, the goal of these 5 steps was to store the values and labels separately in the same order to facilitate visualization.</strong></p>
+
+<pre><code class="language-python">crime_assault = crime[crime[&quot;offence&quot;].str.contains('ASSAULT', flags=re.IGNORECASE, regex=True)] #Step 1.
+
+values_assault = crime_assault[&quot;offence&quot;].value_counts() #Step 2.
+
+for key,value in values_assault.iteritems(): #Step 3.
+    if value &lt; 1500:
+       values_assault= pd.DataFrame(values_assault.rename({key: &quot;other&quot;}))
+
+
+values_assault=values_assault.groupby(values_assault.index).sum().sort_values(&quot;offence&quot;,ascending=False) #Step 4.
+
+labels_assault = values_assault.index #Step 5.
+</code></pre>
+
+<h2 id="visualization">Visualization</h2>
+
+<p>As I already said, I wanted to generate an appealing visualization. I&rsquo;ve got inspired by <strong>Kevin Amipara</strong> and his <a href="https://medium.com/@kvnamipara/a-better-visualisation-of-pie-charts-by-matplotlib-935b7667d77f" target="_blank">article</a> called &ldquo;A better visualisation of Pie charts by MatPlotLib&rdquo;.</p>
+
+<p>The only changes I made was to i.) plotting the two plots in subplots, and ii.) adding the legends.</p>
+
+<pre><code class="language-python">plt.figure(num=None, figsize=(15, 12))
+
+
+##############################   Crime    ################################
+plt.subplot(1,2,1)
+plt.pie(values_crime, autopct='%1.1f%%', pctdistance=0.85, startangle=90, explode = [0.05]*labels_crime.shape[0])
+
+    #draw circle
+centre_circle = plt.Circle((0,0),0.70,fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+
+    #title+legend
+plt.title(&quot;Share of Crime Offences in Toronto&quot;,size=20)
+plt.legend(labels_crime,loc=2)
+
+    # Equal aspect ratio ensures that pie is drawn as a circle
+plt.axis('equal')  
+plt.tight_layout()
+
+##############################   Assault   ################################
+plt.subplot(1,2,2)
+plt.pie(values_assault, autopct='%1.1f%%',pctdistance=0.85, startangle=90, explode = [0.05]*labels_assault.shape[0])
+    
+    #draw circle
+centre_circle = plt.Circle((0,0),0.70,fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+
+    #title+legend
+plt.title(&quot;Share of Assaults in Toronto&quot;,size=20)
+plt.legend(labels_assault,loc=1)
+
+    # Equal aspect ratio ensures that pie is drawn as a circle
+plt.axis('equal')  
+plt.tight_layout()
+
+plt.show()
+</code></pre>
+
+<p><img src="output_20_0.png" alt="png" /></p>
+
+<pre><code class="language-python">
+</code></pre>
+
+<p>As you can see from the left chart (Crime Offences), Torontians experience assaults most of the times. Assaults represent over 50% of the criminal activity in the City. Furthermore, &ldquo;Break and Enter&rdquo; represents 21% of the activety.</p>
+
+<p>Looking at the righ plot (Assaults), you can infer more interesting facts. Firstly, 17% of assaults are conducted with a weapon. Specifically, if you happend to be assaulted in Toronto, there is 17% chance you will have to threaten by weapon. Unfortunatelly, I cannot infer the share of fire guns regarding these assaults.
+What is more, acording to &ldquo;Assaul Bodily Harm&rdquo; a person in assault is 5% likely to be bodily harmed.</p>
+
+<h2 id="mapping-crime">Mapping Crime</h2>
+
+<p>Since my family from Europe is visiting me soon, I was already concerned about their safety. I thought it would be effective to find places hight criminal density, so my family can avoid them.
+There are two ways how to do it:
+* 1. Utilize longtitude and latitude coordinates as axis
+* 2. Use a modele (e.g.<code>folium</code>) and plot crime on a map</p>
+
+<h3 id="longitude-and-latitude-on-x-and-y-axis">Longitude and Latitude on x and y Axis</h3>
+
+<p>This is the easiest method of how to inspect criminality in the map. Simply put, <code>Long</code> and <code>Lat</code> are nothing else than the coordinates. Given the high density of crime across four years, plotting crimes on a scatter plot should form a coherent map of the City of Toronto.
+Notice that I played with the arguments in <code>plt.scatter()</code>. The density was so high that I had to reduce dot&rsquo;s size and decrease transparency as much as possible. The process required some trial and error approach.
+Consequentially, one can infare several things from even such simple mapping.</p>
+
+<pre><code class="language-python">plt.figure(num=None, figsize=(10, 8))
+plt.scatter(&quot;Long&quot;, &quot;Lat&quot;, data = crime, c = 'y',alpha = 0.1, edgecolor = 'black', s=2)
+plt.grid()
+plt.xlabel('long')
+plt.ylabel('lat')
+plt.title('Toronto Crime')
+plt.tight_layout()
+plt.axis('tight')
+
+plt.show()
+</code></pre>
+
+<p><img src="output_26_0.png" alt="png" /></p>
+
+<p>Firstly, there are a few high-density areas on the map. The most evident one is in the south of the City – downtown. The neighborhoods around also exhibit high criminal activity and there are also other spots suggesting criminal neighborhoods can be clustered. Contrary, the white spots are green - park - areas.</p>
+
+<p>You can also infer that crime appears mostly alongside the major roads. Technically, you can observe every major street, avenue, and road in the City. Additionally, you can clearly see the Young Street heading North from the Downtown. Did you also know that Young St. is said to be the longest street in the world? Remember, these are just dost in the scatter plot.</p>
+
+<h2 id="neighbourbourhoods-you-should-avoid-in-toronto">Neighbourbourhoods You Should avoid in Toronto</h2>
+
+<p>The following section supports my previous statement that criminal neighborhoods can be clustered. In the following code, I grouped the data by <code>Neighbourhood</code> (with 141 discrete values), and counted <code>MCI</code> in each district, i.e. <code>top_N</code>.</p>
+
+<p>Afterward, I dropped the duplicates in <code>Neighbourhood</code> in <code>crime</code>, and got <code>Long</code> and <code>Lat</code> coordinates. I joined the data with <code>top_N</code>. As a result, I obtained the <code>map_data</code> DataFrame object, where each row (with <code>Neighbourhood</code> index) records <code>Lat</code>,<code>Lot</code>, and <code>MCI</code> accordingly.</p>
+
+<pre><code class="language-python"># Top N Criminal Neighbourhoods in Toronto 
+top_N = crime.groupby('Neighbourhood')[['MCI']].count().sort_values(by=['MCI'])
+
+
+# Coordinates Criminal Neighbourhoods
+map_data = crime[['Neighbourhood', 'Lat', 'Long']].drop_duplicates('Neighbourhood').set_index('Neighbourhood') \
+    .join(top_N, how='inner')
+</code></pre>
+
+<p>See the most criminal neighborhoods bellow.</p>
+
+<pre><code class="language-python">map_data.sort_values(by=['MCI'], ascending=False).head(10)
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th>MCI</th>
+    </tr>
+    <tr>
+      <th>Neighbourhood</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Church-Yonge Corridor (75)</th>
+      <td>43.663906</td>
+      <td>-79.384155</td>
+      <td>6301</td>
+    </tr>
+    <tr>
+      <th>Waterfront Communities-The Island (77)</th>
+      <td>43.644955</td>
+      <td>-79.397644</td>
+      <td>5674</td>
+    </tr>
+    <tr>
+      <th>West Humber-Clairville (1)</th>
+      <td>43.743992</td>
+      <td>-79.598869</td>
+      <td>4338</td>
+    </tr>
+    <tr>
+      <th>Moss Park (73)</th>
+      <td>43.657307</td>
+      <td>-79.373459</td>
+      <td>3609</td>
+    </tr>
+    <tr>
+      <th>Bay Street Corridor (76)</th>
+      <td>43.658077</td>
+      <td>-79.384712</td>
+      <td>3564</td>
+    </tr>
+    <tr>
+      <th>Kensington-Chinatown (78)</th>
+      <td>43.650070</td>
+      <td>-79.396881</td>
+      <td>3263</td>
+    </tr>
+    <tr>
+      <th>Woburn (137)</th>
+      <td>43.777592</td>
+      <td>-79.226578</td>
+      <td>3158</td>
+    </tr>
+    <tr>
+      <th>York University Heights (27)</th>
+      <td>43.774353</td>
+      <td>-79.499802</td>
+      <td>3141</td>
+    </tr>
+    <tr>
+      <th>Downsview-Roding-CFB (26)</th>
+      <td>43.733581</td>
+      <td>-79.483727</td>
+      <td>2974</td>
+    </tr>
+    <tr>
+      <th>Annex (95)</th>
+      <td>43.665916</td>
+      <td>-79.407471</td>
+      <td>2908</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Finally, I could use <code>map_data</code> DataFrame alongside with <code>folium</code> and visualize criminality in neighborhoods as clusters with the heatmap.</p>
+
+<p>The process follows a certain logic:
+1. create a Map (<code>m</code>) with using longitude and latitude of the place of your interest.
+2. if you want to add a marker or other feature from <code>folium.plugins</code>, generate the object and use <code>add_to(M)</code> where M usually represents <code>folium.Map()</code> object or other module, e.g. <code>HeatMap()</code></p>
+
+<ul>
+<li>Step 1: Creating &amp; adding clustering functionality, i.e. <code>MarkerCluster()</code>, to the map (<code>m</code>).</li>
+<li>Step 2: Creating &amp; adding <code>Marker</code> for every row, i.e. neighborhood, based on <code>Long</code> and <code>Lat</code> to the cluster (<code>cluster</code>).</li>
+<li>Step 3: Creating &amp; adding <code>HeatMap</code>to the map (<code>m</code>).</li>
+</ul>
+
+<pre><code class="language-python"># Mapping Criminal Neighbourhoods
+m = folium.Map(
+    location=[43.702270, -79.366074],
+    zoom_start=11
+)
+
+#Step 1: Clusters
+cluster = MarkerCluster().add_to(m)
+
+#Step 2: Clusters breaking into Markers
+for x in map_data.iterrows():
+    folium.Marker([x[1].Lat, x[1].Long]).add_to(cluster)
+    
+#Step 3: Heat
+max_crime = map_data['MCI'].max() # max value as reference for the darkets shade
+
+heat = HeatMap(map_data.values,
+                min_opacity=0.2,
+                max_val=max_crime,
+                radius=30, blur=20, 
+                max_zoom=11)
+
+heat.add_to(m)
+
+m # call m to see the heat map with clusters
+</code></pre>
+
+<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><iframe src="data:text/html;charset=utf-8;base64,PCFET0NUWVBFIGh0bWw+CjxoZWFkPiAgICAKICAgIDxtZXRhIGh0dHAtZXF1aXY9ImNvbnRlbnQtdHlwZSIgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PVVURi04IiAvPgogICAgPHNjcmlwdD5MX1BSRUZFUl9DQU5WQVM9ZmFsc2U7IExfTk9fVE9VQ0g9ZmFsc2U7IExfRElTQUJMRV8zRD1mYWxzZTs8L3NjcmlwdD4KICAgIDxzY3JpcHQgc3JjPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL2xlYWZsZXRAMS40LjAvZGlzdC9sZWFmbGV0LmpzIj48L3NjcmlwdD4KICAgIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8xLjExLjEvanF1ZXJ5Lm1pbi5qcyI+PC9zY3JpcHQ+CiAgICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9tYXhjZG4uYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvMy4yLjAvanMvYm9vdHN0cmFwLm1pbi5qcyI+PC9zY3JpcHQ+CiAgICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvTGVhZmxldC5hd2Vzb21lLW1hcmtlcnMvMi4wLjIvbGVhZmxldC5hd2Vzb21lLW1hcmtlcnMuanMiPjwvc2NyaXB0PgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL2xlYWZsZXRAMS40LjAvZGlzdC9sZWFmbGV0LmNzcyIvPgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL21heGNkbi5ib290c3RyYXBjZG4uY29tL2Jvb3RzdHJhcC8zLjIuMC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiLz4KICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9tYXhjZG4uYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvMy4yLjAvY3NzL2Jvb3RzdHJhcC10aGVtZS5taW4uY3NzIi8+CiAgICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vbWF4Y2RuLmJvb3RzdHJhcGNkbi5jb20vZm9udC1hd2Vzb21lLzQuNi4zL2Nzcy9mb250LWF3ZXNvbWUubWluLmNzcyIvPgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL2NkbmpzLmNsb3VkZmxhcmUuY29tL2FqYXgvbGlicy9MZWFmbGV0LmF3ZXNvbWUtbWFya2Vycy8yLjAuMi9sZWFmbGV0LmF3ZXNvbWUtbWFya2Vycy5jc3MiLz4KICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9yYXdjZG4uZ2l0aGFjay5jb20vcHl0aG9uLXZpc3VhbGl6YXRpb24vZm9saXVtL21hc3Rlci9mb2xpdW0vdGVtcGxhdGVzL2xlYWZsZXQuYXdlc29tZS5yb3RhdGUuY3NzIi8+CiAgICA8c3R5bGU+aHRtbCwgYm9keSB7d2lkdGg6IDEwMCU7aGVpZ2h0OiAxMDAlO21hcmdpbjogMDtwYWRkaW5nOiAwO308L3N0eWxlPgogICAgPHN0eWxlPiNtYXAge3Bvc2l0aW9uOmFic29sdXRlO3RvcDowO2JvdHRvbTowO3JpZ2h0OjA7bGVmdDowO308L3N0eWxlPgogICAgCiAgICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLAogICAgICAgIGluaXRpYWwtc2NhbGU9MS4wLCBtYXhpbXVtLXNjYWxlPTEuMCwgdXNlci1zY2FsYWJsZT1ubyIgLz4KICAgIDxzdHlsZT4jbWFwXzUwMTRkOThjODQ5YTRkNTg5Y2VmNDViNmQzZjllZWRlIHsKICAgICAgICBwb3NpdGlvbjogcmVsYXRpdmU7CiAgICAgICAgd2lkdGg6IDEwMC4wJTsKICAgICAgICBoZWlnaHQ6IDEwMC4wJTsKICAgICAgICBsZWZ0OiAwLjAlOwogICAgICAgIHRvcDogMC4wJTsKICAgICAgICB9CiAgICA8L3N0eWxlPgogICAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2xlYWZsZXQubWFya2VyY2x1c3Rlci8xLjEuMC9sZWFmbGV0Lm1hcmtlcmNsdXN0ZXIuanMiPjwvc2NyaXB0PgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL2NkbmpzLmNsb3VkZmxhcmUuY29tL2FqYXgvbGlicy9sZWFmbGV0Lm1hcmtlcmNsdXN0ZXIvMS4xLjAvTWFya2VyQ2x1c3Rlci5jc3MiLz4KICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvbGVhZmxldC5tYXJrZXJjbHVzdGVyLzEuMS4wL01hcmtlckNsdXN0ZXIuRGVmYXVsdC5jc3MiLz4KICAgIDxzY3JpcHQgc3JjPSJodHRwczovL2xlYWZsZXQuZ2l0aHViLmlvL0xlYWZsZXQuaGVhdC9kaXN0L2xlYWZsZXQtaGVhdC5qcyI+PC9zY3JpcHQ+CjwvaGVhZD4KPGJvZHk+ICAgIAogICAgCiAgICA8ZGl2IGNsYXNzPSJmb2xpdW0tbWFwIiBpZD0ibWFwXzUwMTRkOThjODQ5YTRkNTg5Y2VmNDViNmQzZjllZWRlIiA+PC9kaXY+CjwvYm9keT4KPHNjcmlwdD4gICAgCiAgICAKICAgIAogICAgICAgIHZhciBib3VuZHMgPSBudWxsOwogICAgCgogICAgdmFyIG1hcF81MDE0ZDk4Yzg0OWE0ZDU4OWNlZjQ1YjZkM2Y5ZWVkZSA9IEwubWFwKAogICAgICAgICdtYXBfNTAxNGQ5OGM4NDlhNGQ1ODljZWY0NWI2ZDNmOWVlZGUnLCB7CiAgICAgICAgY2VudGVyOiBbNDMuNzAyMjcsIC03OS4zNjYwNzRdLAogICAgICAgIHpvb206IDExLAogICAgICAgIG1heEJvdW5kczogYm91bmRzLAogICAgICAgIGxheWVyczogW10sCiAgICAgICAgd29ybGRDb3B5SnVtcDogZmFsc2UsCiAgICAgICAgY3JzOiBMLkNSUy5FUFNHMzg1NywKICAgICAgICB6b29tQ29udHJvbDogdHJ1ZSwKICAgICAgICB9KTsKCgogICAgCiAgICB2YXIgdGlsZV9sYXllcl8zNDgxMmQ4ZjY0ZmE0M2M4OTlmZWIzOGYwYjViMzBiMCA9IEwudGlsZUxheWVyKAogICAgICAgICdodHRwczovL3tzfS50aWxlLm9wZW5zdHJlZXRtYXAub3JnL3t6fS97eH0ve3l9LnBuZycsCiAgICAgICAgewogICAgICAgICJhdHRyaWJ1dGlvbiI6IG51bGwsCiAgICAgICAgImRldGVjdFJldGluYSI6IGZhbHNlLAogICAgICAgICJtYXhOYXRpdmVab29tIjogMTgsCiAgICAgICAgIm1heFpvb20iOiAxOCwKICAgICAgICAibWluWm9vbSI6IDAsCiAgICAgICAgIm5vV3JhcCI6IGZhbHNlLAogICAgICAgICJvcGFjaXR5IjogMSwKICAgICAgICAic3ViZG9tYWlucyI6ICJhYmMiLAogICAgICAgICJ0bXMiOiBmYWxzZQp9KS5hZGRUbyhtYXBfNTAxNGQ5OGM4NDlhNGQ1ODljZWY0NWI2ZDNmOWVlZGUpOwogICAgCiAgICAgICAgICAgIHZhciBtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCA9IEwubWFya2VyQ2x1c3Rlckdyb3VwKHt9KTsKICAgICAgICAgICAgbWFwXzUwMTRkOThjODQ5YTRkNTg5Y2VmNDViNmQzZjllZWRlLmFkZExheWVyKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2RmMmQxY2MzNGNjYTQ3ZjFhZjQyNzY0ZDNkYzRkMDUzID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42Njg0NDk0LCAtNzkuMzQzMDkzOV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYjJlYWM3YzEzODMxNDIyNWJlMTZkOTY4ZTM4ZDFlYTYgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc1OTI4NSwgLTc5LjUwNzkyNjkwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9iMWYwOGQ4MWViZjE0ZmE0OWMwZDI3MmRhYjJjYmVhNSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjk3NTUxNzAwMDAwMDEsIC03OS41MDE2NjMyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9iMTlkZmFkMjYzY2E0OGUwYjZjZGZjMDIwMGMxNGYyZSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzIxNzAyNiwgLTc5LjU3MTUxMDNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzdlYzc5ZGU5MWI4ODRhYWM5ZTc4NWQ2Njg5Y2UzMzBhID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NjM4OTA4LCAtNzkuNTAzNDg2NTk5OTk5OTldLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2MxNmZiMDFhYWFiNDQyMzc4OGE2NDg0NWQ2OTBjMjY0ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NTczMDY3MDAwMDAwMSwgLTc5LjM3MzQ1ODldLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2FkMTFkMTU2NjZmODRhMzE5NmVmOTQ4N2M2MDM5MzRlID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NjYzNjI4LCAtNzkuMzE2NjA0NTk5OTk5OThdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2M5NjRkZmYzZTk3NTQ4MjBiZGI1Y2UzNWRlY2IwN2M1ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NTgxMTE2MDAwMDAwMSwgLTc5LjQwMjAyMzNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2M0MzJkOGI0YWMwMTQyNjM4ZjZmOGJiODBlMDI4ZWE1ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43Njg4NTYsIC03OS40NjY5MjY2XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl84NDY2M2MyNjcwYjE0ZTZmOTkwODk1NzAzNGQxMDU2YyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuODA3ODA0MTAwMDAwMDEsIC03OS4yMTU1OTkwOTk5OTk5OF0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMDFmNmU4ZGZlNWMwNDFiN2E3OGM5MTA0YWZhNTIzOTQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY0MTU1MiwgLTc5LjQ3NDU0MDddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzIwZTUyOTRiOWRhZTRiYzhhNDhlYzEzNzVhNzI3MWNkID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42OTUxMzMyMDAwMDAwMSwgLTc5LjMwMzQ4MjFdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzA5MmRiN2JjMWYzNTQxYzY4ZDE5MmE4NjJjYmNjYzJmID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NTU4OCwgLTc5LjM2MzIyMDJdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2ZhYjM2YjUwMWUxOTQ1MWJhZGI3YjU5MzY2YTViM2Q3ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NjM5MDYxLCAtNzkuMzg0MTU1Mjk5OTk5OTddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzE3ZjgzZTY2MDc0MTQyN2M5Y2ZiMDc3Y2Y2MWUyMDRlID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NTAwNzAyLCAtNzkuMzk2ODgxMV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfM2RmODQwZWE1ODI3NGI5YTk0MThmYzAzZGIxZWY2Y2EgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5OTEzMSwgLTc5LjI1NDMzMzVdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2IwOWY3NGYyZDQxYTRkNWVhNTQ3Y2NhZjZlZWY1ZTgyID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NDk0ODg4LCAtNzkuNTMyNzkxMV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMWNhZTBkZmRmMjVlNDliN2E2ZGNhMmJiMGNhNzA4YjAgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY3MjQzMTksIC03OS4zMzQxOTA0MDAwMDAwM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNTY5ZWIxYTIzYTllNGM4ODg4OWU0MmVhOWM5OGQ2NWIgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc3MzYxNjc5OTk5OTk5LCAtNzkuMjYxMTMxM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfM2NhZmU4ODZjYTVhNDU3MjgxOGNmZWM0YTllZGE4MTEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY4NzgyMDQsIC03OS40MzQ5MzY0OTk5OTk5OF0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZWMwYzIwZjliMDU5NDA2MTliMjJmZmYwZGE2MTQxZWEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY1ODA3NzIwMDAwMDAxLCAtNzkuMzg0NzEyMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMGI4M2Y2YzAzZjllNDM3NzkxZDRhZTBjYjc1ZTNkZjIgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY0NDk1NDcsIC03OS4zOTc2NDRdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2E1Y2JhYjVkNDA1YjQ1OTU5YzNhODJkY2ZhMGNhOWNmID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NTY0MzkyLCAtNzkuMzYwNzcxMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYWI2NGNiMGUyMjg0NDEzNDk5Y2E0YjYzNjhjMWNiNWQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY2MzcyMywgLTc5LjM3MDUyMTVdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzMyZTBhZTRkOGM3MzQzZTlhMGNhMjUwY2JhMmU4NTQ1ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NjY2MDkyLCAtNzkuMTg1NjYxM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMjAzODAzMWY4NzJmNGY0MDhjM2I4MjdkMDBjZDZkMzEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5NDM2NjUsIC03OS4yNzM2NTExXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9lYWRmNDVmY2RhMjA0NzI1YTFkODJiNzE1MzRlYjBlMCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzQzOTkxOSwgLTc5LjU5ODg2OTNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2Y1YjYxNTkzMjc1OTQwMGZhY2U2ZjcwZmZmNjg0ZTkwID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NjMwMjM0LCAtNzkuMzE3NTI3OF0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZGQ0ZDZmYTQzYTAwNDc3M2ExM2JkMWQ5OTg0ZGI5YWQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc2ODgzNywgLTc5LjM3ODM3OTc5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8yN2IwMDI4MzNhNzU0NzUxODI1ZTIzM2FkN2E0NmU0NyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzQ2MDc4NSwgLTc5LjM4ODYyNjFdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzEyNWNhOGQwODFkNDQ2Zjk4NTQzZDlkMWQ0NmY0N2FmID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NTY1OTk0LCAtNzkuNTEyMDY5N10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYWE5NjRkYWU2ODU2NGU0YThkMGY0NDQxNWI5ZTY2ZDkgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY2NTkxNjQsIC03OS40MDc0NzA3XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8wMGFmOTI5NTQxMGI0ZGU3OTgyYmFjOWE1ODczZDYxYSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzY4MzgzLCAtNzkuMzQ5MDM3Ml0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMTBiMzA3NDJiNWUxNDU1NmI2MjE1M2Y4YWRkMTNjZDIgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjczMzMzNzQsIC03OS4yNjMyOTA0MDAwMDAwMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNTg5Y2Q2NzRkNzY1NDQ2YmJjMjM2MWFlMDkwNmQxZmMgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc2MjE4NDEsIC03OS4zMjExNTE3XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9lY2M5MWQ0YTlkMzk0YzE3YjM4MTFmY2UwMjQ4ZjJiOCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuODExNTE5NiwgLTc5LjMxNDU0NDddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzQyMjFhZWNiMzMxNDQwZmJiYmJlOTZjOGZmZjZkYjcyID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NzY4NjY5LCAtNzkuMzE2MjIzMDk5OTk5OTldLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzVhZmE2ZjRjMTQ5YTQ5MjI5YjdhZjRmMmUzMGRjNTg2ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43MzgzNTc1LCAtNzkuMzA5NzgzOV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNjkyYzY1MTlhMDk2NDNmNThhNzRhZDY0MGI2NTNlMmUgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc1MjQ3OTYsIC03OS41NjA3Mzc2XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl80MDE4NTZjNjRmZjA0OGYxYmQxOThlNjI1MGIwZDFhOSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzQyOTMxNCwgLTc5LjIxMTI5NjA5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9jNGQwMjU3ZDcwMmU0ZTE4YTNlNTk1YWQwZjU0ZjJjYiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjgyMzM4NywgLTc5LjUyNjYwMzddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2I1NzljNmUyOGJlYjRmN2ZhZDMwOWQ2YWE4NmRhNTk5ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NzUxNTc5LCAtNzkuNDE0MzgyOV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZWJkMjdmMTQ3MjVkNGI1ZWEyMmYxZjI2OGRhOGIzMTAgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjcxMzA1MDgsIC03OS40MTE3NzM3MDAwMDAwM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZDg3NmVkMDc0MzAxNDAwOWI3NDdmMTU1NDMwNWMwMjEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc3NzU5MTcsIC03OS4yMjY1Nzc3OTk5OTk5OV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfODYxZjc0YTM4ZTFlNGE3Nzg5MWQ4ZjQ2NzlhYmU3MDggPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjcxNzAyNTgsIC03OS41MzcyOTI1XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9kMWFmOTg2Yzk1ZDg0MGNmYWJkZDAxM2Y4OGRkNDRkYSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzQxMjMzOCwgLTc5LjIzNzI2NjVdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzQ4OThmNTUxZTc2MDQ0MjNiYmI0YTAyNDk5ZjM4ZTNiID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43MDY4NjM0LCAtNzkuMzIwNjFdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzExYTY5YWUxY2I1MTQ4NzM4M2JhNGU2ODE0M2Q4MWZhID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42MDMwMDQ1LCAtNzkuNTA3NDg0NDAwMDAwMDJdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzljNThlNjRjNDM4ZTRiMThhZjQxYjUyZDlmNmM2NzhmID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43MTY1Nzk0LCAtNzkuMzMwMzc1N10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZmZiMDkyMGYzYjUxNGUyNmI2YWQ2MTE0ODY4NjIyNjkgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc5MTUxNTQsIC03OS4yOTgxMDMzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8zNDBmNzhhMzg0MDU0OTYyOGUzMjA5ZWNhMmUzMzU3MCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjQxMjI3NywgLTc5LjQyNjY3MzkwMDAwMDAzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9kN2JiMTFiYjkxZWI0OGMzYjRkZDFkMWJkYjdkYTVkNiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjkzMjQ0OSwgLTc5LjUwNDY2OTIwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8xMmE3MDIwNDZkNWM0N2ViYTZmNjBjOTkyYmM0OGE3MiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjg0NDI5MiwgLTc5LjM0NjkyMzhdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzU2YzRmZDJmNGNiNjQ0Nzk4NjExZTFlZWMwNmZkODJhID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43ODk5MTMyLCAtNzkuMjE3NDUzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl82YWJkYzE1NGU2ODA0NWFjOGY4N2MwYjcyYzRkYWUyMCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjg1OTgxOCwgLTc5LjM1NjI5MjddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzAxZjFjZDFkOTgxNTQ0OGE5OWMzYzRjMjRhM2I0NmUzID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42OTg5OTM3LCAtNzkuNDM1MDM1NzAwMDAwMDFdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzM5ZjFiM2Q3MTcxNzQ5YmVhNGQ4YTJmMGY4MTE0ZjczID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43MDcyMjU4LCAtNzkuMjk1MjgwNV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZjAwNmNjMmRkMWUwNDA4NThkMWQ0MThjYTcxNjgwOTkgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjczMzU4MTUsIC03OS40ODM3MjY1XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9iZWZmZjg0ZTJlYjg0MGZkYmVmOTQ1MDY3MTQ1NDU1NyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjQ0NjU3MSwgLTc5LjUzMDc5OTldLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2UwYzVkMmQxMzc0OTQ1OGVhYTRlOWU1ODdmN2U2OGU4ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43Njg5MDE4LCAtNzkuMjg1NTUzMDAwMDAwMDJdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzI2NzAyMTgzOTRiYTQ3MTE5MTk2MDJkZjY2MDg1YTA2ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My44MDE5MzMzLCAtNzkuMzU5Mzk3OV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYTRkOGMxODNkMmQzNGQ1YTg1ZDc3ZTI0OWQyOTcwMzcgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5ODM0NTIwMDAwMDAxLCAtNzkuNTExMzE0NF0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZjM2MzUzY2JjYjZiNGJmODllZmMyY2IxOTEyYzVjNjIgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc3OTc2OTksIC03OS40MTU1NzMwOTk5OTk5N10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfODc3NmE5YjA2YzQxNDc4MmJiMGZlMmJmZmFkMWY1MDYgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5NjI2MjQsIC03OS40NDc2ODUyMDAwMDAwMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNzMzZTM3ZjU2NjQ5NDY3YjgzZmI3MTY5NzVkMWVhNDQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjczMjM5NTIwMDAwMDAwNiwgLTc5LjQxOTQxMDcwMDAwMDAxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl81YjQzMDE0ZDVkNjc0OWNjYmQwYTEwZWExYjg4NzJiNSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjUwNzgzNSwgLTc5LjQxMzQ5NzkwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9lYzkwNzhkMzczNjQ0MDNkOGY5MWRhMDlkMjkxN2Y0MyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzAwMzEzNiwgLTc5LjM4Njk3MDQ5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl83NWJlYmI3Nzc5ZmU0ZDQ5OGE3MjliNTYyNGZkYTlhZCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuODAxMjY5NSwgLTc5LjI5NjYwMDMwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8yNzc1ZDBjYWVlMzE0YmQ2OGZmZTIzOGJkNTgzODQ1ZiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzA1NDYzNCwgLTc5LjQwMDA5MzA5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9jYzllN2VjODcxZjU0Y2M5OWE5NDYxZThlOTVlNzRkMCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjY4NDY4NSwgLTc5LjQzOTAzMzVdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzIyODk3M2I5NzAwMTQ1Y2NhNDgzNzU5YjA1Y2Y0NDAxID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42OTI0OTczLCAtNzkuMzE1NzM0OTAwMDAwMDJdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzMxOGVjZTI5NDg3MjQ4MWE4NDZjY2ZhZjE1MTRmNjY0ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My44MTEwODg2LCAtNzkuMjY2MDA2NDk5OTk5OTddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2JhOTJhNGYyM2YwNTQ2OGZhZTc2OWZhMTE1NTlmNWQ5ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NjYxMDM0LCAtNzkuNTg3Njc3XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9kMDRhYjhhZTJjNDA0NDllYWJlNjhkMmRkYmMyNjdkZiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzAzNTkwNCwgLTc5LjQ1MjQyMzA5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8xMmNjYmU4MDBjM2I0ZGI1YjVjZjNiODQ2MTQ2MmY1MSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjgzMTcwMywgLTc5LjQxODMwNDQwMDAwMDAzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl85YTI2NDEwNjJhZjg0ZDA2YTdiZmMwN2MxNmQyZDk1NiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjQwMzM1MSwgLTc5LjQzNzkxOTZdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzI1NjgxN2M1NjRkNjQyMTdiYWJhOGM0MGI3Y2MxOWMxID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43Nzg1NjA2MDAwMDAwMSwgLTc5LjMyODcwNDhdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2E2ODE3MTViZDY5MTQyNGQ5ZmEwYWI0ZDIzMGM1NGI3ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42OTEyMjcwMDAwMDAwMSwgLTc5LjQ3MDM5NzkwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8yZWU3MzU3ZThlOTY0MWVlOTZlZDBmNjE5NzMwNTMzNiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjc4ODY3Mjk5OTk5OTksIC03OS4zMjY4MjA0XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9kMjYwM2EzZjY4NDc0MTc1OTAyYzljMzU0NDhjM2VmZCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzQ2ODE0NzAwMDAwMDEsIC03OS41ODM4MDg5MDAwMDAwMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNzMzZWU1ZjIzOTFiNGY1MzkxMWI2NmFlZDVkMGU3OTEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc4NjU4MjksIC03OS4xODgzMDg3MDAwMDAwMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNTZmN2E4OTQzN2MxNDg0Y2E2MDkzN2FkOTY4MWRlMDMgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY1MDgxMDIsIC03OS41MjIzNjE4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl81ODNhNjkzMjUwY2Q0MjBkYWRmOTBmNmRlNWI2MjI2NCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzIwNTE2MiwgLTc5LjQ4MDcyODFdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2M2YTAyMTlkZTllZDRlYjU5ZGM3MWViZTBmMTczZTQyID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43ODU3NjI3OTk5OTk5OSwgLTc5LjI4OTQ1OTIwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl80OTE4OTFkYWQ2ODg0OWY3OTEzOTNmZmYyYzFmZTlkMyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzg3NjUxMSwgLTc5LjM1MTY1NDA5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl85MGI2MTY3MzgwOTk0MmFiYjcwNzRjNTMxOGZhY2ZmMCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzczODYwOSwgLTc5LjQ0MzAwODRdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2EwNTkwODYzYjZjMDQ4YjBhYTcyODA3MWI1MzhjZTYzID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42MzkwMjI3OTk5OTk5OSwgLTc5LjQxNTkxNjQwMDAwMDAxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9jYzhjY2EzMzE2MjM0MWQ2OTI5MzhmYjc3MmFjZTkzNSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjcwMzM3NzAwMDAwMDEsIC03OS40NTU3OTUyOTk5OTk5OF0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZDkyNWYyYWVkNmM4NDY1OWIzODc4MGRhOTA3NWE3MmEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjcyMjI4MjQsIC03OS4yNjIxMjMxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8wYWExNzRkYTZjOTU0YzMxOGU3NzJiMGZhYmFiMzQ1YSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzQwNzExMiwgLTc5LjQzODg3MzNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2NhNjE4N2NmY2E1MzRjNDA4OGQ0ZDAzY2I2NmRiODliID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42ODAxMTA5LCAtNzkuMjkyNTk0OV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfODU3MzY0NTZiZjU0NGNmZWIxNzEwNTZkMmZkYjM4MzQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5MTg5ODMsIC03OS40NTYyNTMxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9lNTY5ZWZjNzZjNGM0YjU4ODliZDJlZTk5MWZmOTQ3ZiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjg2MjMzNSwgLTc5LjM5MzMzMzRdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2IzNDVhMjViNjJkMTRkMmZhNGQ1OWUxMDllMTllMDY3ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43NDgyODM0LCAtNzkuMTk1ODMxM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfODNlMmQxMjhiZmJhNDA0NTgwOTM3NGIyMTZlMDUwNjUgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjgwNDIyNTksIC03OS4xNjg3ODUxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9kNDZjOTc1MzM3MGU0Zjg0YmRmNjdhZjQ3MjlhYzdkYyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjY2NDMxNCwgLTc5LjM3NjUwM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYWNhNjVjM2MzOWU2NGNlMGJiYWIwMDc2MjRiMDg0ZmYgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc0NjkzMywgLTc5LjQzNDQxNzddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzRjNTUwN2MxMzgyNTQ2NDI4NmMxYzE2ZjM3OGU3OGZkID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43MjkwNjExLCAtNzkuNDQ1OTkxNV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYTUwYzlkNWEzZDkxNDA0Yzk4NDEwMjZkNzRmMGJmZmIgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY1OTIyOTI5OTk5OTk5LCAtNzkuNTE0MTM3M10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZmIwZWQ1YzYzMjgwNGI5ZDhkYjY3Mzk5NzAyYThiMTcgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjczNTQxNjQsIC03OS4zNDcxMzc1XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8xNjNmOThhOTcxMjU0Mjg1OTEyNjI0OTUyNTUzYzUzYiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjc0NDA4LCAtNzkuNDMzNzg0NV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNTI2YTI5MDk1NTkzNDkyNzg2OTNlNzg5ZjM0YTJkNGIgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjYxNDIwNDQsIC03OS41MTcyNzI5MDAwMDAwMl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMDViM2RiNzAyZGVmNDE4NjlhMTFhOWE1NzIwN2I1ODkgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5NTgxNiwgLTc5LjU2MjczNjVdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2EzYjg0YTQ4MjczZjQyYWI4MTVhMWEwZGMxMjg2YmU2ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My41OTM2NjIzLCAtNzkuNTM3MDAyNl0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMmRiZWNhZDU5NTQwNGJiMmEyNThhNTYwNzFmM2IzNDQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc4MTYzOTEsIC03OS40NTUyOTk0XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8xYzgzODMzZThiMzY0YjUyOTNkNGQxMzM2ZDZlMWU3YyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzMzNjgwNywgLTc5LjIyNzAxMjZdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzYyYTllMmE3Mzg5NDRiNDY5ZWZmMzg2YWJlZDViYTQ4ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43Mjc2NTM1LCAtNzkuNTQ5NTM3N10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZWQ4NGY1MDViODYyNDIyMGJkMTFjZjdjNjc5ZjZhYzQgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY4NDI4OCwgLTc5LjMxOTIzNjhdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzAzYThhNjI3OWQzMDRlNWFiZGY1MmRhMTRhYjUyMDkxID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42MDU2NDQyLCAtNzkuNTM4MjY5XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl83ODU4M2IzMTQ5NzY0MzUyOWUxYzg5YjJmOTg3NWI0OCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjUxNjExMjk5OTk5OTksIC03OS40NzQwOTA2XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl80MmFlN2Y1ZGFmZjc0OTMyOTliZTA5ZjcwNmU0ZjlhMiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjc3NTI0NjAwMDAwMDEsIC03OS4zNTg2NTAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl83NzE1MmQyYjNjYTM0ZWFlODIwMDk0ZDI4YWY1OGMzNSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzc0MzUzMDAwMDAwMDEsIC03OS40OTk4MDE2XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl83MDkyYzA5MTg4ZWU0ZDg4OTY2Y2RjYmI0YzcwZDU2YyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjMwOTczNzk5OTk5OTksIC03OS40ODE1MTRdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2MxOWRjNjg3NGFmNDQxMGViN2JiZDdjOTAxOGExNGY1ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43MDc0Nzc2LCAtNzkuMzQzNjI3OTAwMDAwMDJdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzAwY2ViZjIzYjQwZDQzZGY4NzI1YmUxYTZlMWVhNjMwID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NzE2NzI4LCAtNzkuNDkzNzUxNV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNGE2NmRlODM0MTMwNGI2ZThkNWZiYTg4ZThkNGM1NGYgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY3ODUzOTMsIC03OS41NDQ4OTE0MDAwMDAwM10sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfYWNlOWVjMDkyNTg2NDIzNzk1YTVjMmJlMWI2YzRhY2MgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY5NzM3NjMsIC03OS4zOTY0NjkxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8zODA1MjI1YmM1Yzk0ZDk2OGQ0ZjcxM2U5MDk4Y2M0YyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzA1MTA4NiwgLTc5LjM3NDkzMTNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzk4YjdhZDJhMDhiMDRjYTNhZmFhYTlkMTk5OTUxMDk3ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42MjczNDYsIC03OS41NjIzNzAzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl84NWVkODc3MmVjZmM0NzFjOTllZDIyMTIzMGQxZTExZCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjcwODU2NSwgLTc5LjQ3NTE5NjhdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzhhYTI4Y2QxODEwZTRlMGVhMjkzMDJhNThiMjcyYjZiID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42ODY4NzA2LCAtNzkuNDY4NTc0NV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNTI5OTJhZWQ4MzcyNGEzOGE2ZTcyZTYyYjhlMjk4M2EgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc0MzYzMzMsIC03OS41NzY0NzcwOTk5OTk5OF0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNDYzYzYyZGIzYzlhNGJjYzhjMGE2NjM4MTc2MGI2NjYgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjc2NjQwNywgLTc5LjQyNTc0MzA5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9hN2ZhZWYzZDcxY2Q0MGM3OTNkNjVkMTRhYzU1MmQ1ZCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzI3NjY0OSwgLTc5LjQwNjIzNDcwMDAwMDAxXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8xMTY3NWY5MWViNDY0ZjBiYWZkYjBiMDk2ZWRlODcxMyA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjc3NzgwMiwgLTc5LjQ1NTc5NTI5OTk5OTk4XSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl80YjFmZWE5MDEyNGM0MWE3ODU5ZTA0MTA2OGM4MmM3NSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjk0NTQ1NzAwMDAwMDA2LCAtNzkuMzM1MjY2MV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfMWQ4MzhkNTU0OGZiNGUyYThiNjkzZTZmZjg2YTQ3MTUgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY3Mjk2OTgsIC03OS4zNDIzOTJdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzIxNWJlY2ExMDE3MTQ2OGFiZjg5MWFhYTE5YjdjNzcwID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42ODU0MTM0LCAtNzkuNDE5MjM1Ml0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfNTFlNjNjMGI0NGYyNDEzOGI4MzJiMWY2Yjg4OTM1M2QgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjcwNzU1MzksIC03OS41MDUxMTE3MDAwMDAwMV0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfOTU2YTAwZTM5NTUyNGEyMmE1NzVjNWIyMjg4MjE3ZGEgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY2NzczMjIsIC03OS4zMTAzMzMzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8zMjhlMDFmMGNkYjU0YjlmYmI5ZjEyZWY3Njc3MjdlMSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjQ3MzA0NSwgLTc5LjQzMjcwODddLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzZkZWVkOWZkYTE1YjQwOTViZmUwOGFkZjgzODc4NDQ5ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NTgzNDgxMDAwMDAwMSwgLTc5LjQzNDc3NjNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2I0OGZmMjQ5ODJlODRkNWQ4MGRkYTM1NWJmNWI4N2RhID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42ODA5NTAyMDAwMDAwMSwgLTc5LjM5Mzc3NTkwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl83MmRmNjllZDQyYTI0ODlmODk3MjBmYzAyYTI0NjAwYSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjY1NTI3MywgLTc5LjQ5OTIwNjVdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyX2Y2ZmYyMDQyYzAwYjQ5ZWQ5Njg4NDMyNTQ5Mzg5NTM3ID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My43OTA3MTgxMDAwMDAwMSwgLTc5LjE1MjE0NTQwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9lMjRiZmUxYzhiMDQ0MWQyOTFlN2YwOTEzY2ExOTE1MSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjg2MDU4LCAtNzkuNDI0Nzc0Ml0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIGljb246IG5ldyBMLkljb24uRGVmYXVsdCgpLAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApLmFkZFRvKG1hcmtlcl9jbHVzdGVyX2NlMzYzNDEwNjMxNTRlYjE4MmVhZTZhNmM5OGJiMTAwKTsKICAgICAgICAKICAgIAogICAgICAgIHZhciBtYXJrZXJfZTViNTNlMTNjZTcyNGI3ZThhODI1OTExMTQ4N2ZhM2MgPSBMLm1hcmtlcigKICAgICAgICAgICAgWzQzLjY2MDUyNjMsIC03OS40MTQ2NjUyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9hNWUyNGNlMmQ2NzM0Yzg0OTdiNGZhMWQ5ZDRjZjk0MCA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjczMzAxNywgLTc5LjU1MTU0NDIwMDAwMDAyXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl9mNDQ1YWEwZDE1OTc0YWMwOWM2MTgwOGRhYWExM2I1MiA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNjM4NDM1NCwgLTc5LjU2MDkyMDcwMDAwMDAzXSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaWNvbjogbmV3IEwuSWNvbi5EZWZhdWx0KCksCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICkuYWRkVG8obWFya2VyX2NsdXN0ZXJfY2UzNjM0MTA2MzE1NGViMTgyZWFlNmE2Yzk4YmIxMDApOwogICAgICAgIAogICAgCiAgICAgICAgdmFyIG1hcmtlcl8wZjMyNGI5N2MxOTQ0MTYyYWRkYjM2ZjI2ZDVhZTJmYSA9IEwubWFya2VyKAogICAgICAgICAgICBbNDMuNzkxMTMwMSwgLTc5LjM5MzM1NjNdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICB2YXIgbWFya2VyXzcwYzc5NGU5NDVlYzRhYWRhMmRkNjlmNWRlMThjZjYyID0gTC5tYXJrZXIoCiAgICAgICAgICAgIFs0My42NTE1NzcsIC03OS42MDMwOTZdLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpY29uOiBuZXcgTC5JY29uLkRlZmF1bHQoKSwKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgKS5hZGRUbyhtYXJrZXJfY2x1c3Rlcl9jZTM2MzQxMDYzMTU0ZWIxODJlYWU2YTZjOThiYjEwMCk7CiAgICAgICAgCiAgICAKICAgICAgICAgICAgdmFyIGhlYXRfbWFwXzQ2N2M4NGE4YzkzMDRkMDdhMGZkZWE1YmRjZGI5ZjU5ID0gTC5oZWF0TGF5ZXIoCiAgICAgICAgICAgICAgICBbWzQzLjY2ODQ0OTQsIC03OS4zNDMwOTM5LCA1MTQuMF0sIFs0My43NTkyODUsIC03OS41MDc5MjY5MDAwMDAwMiwgMjAwNi4wXSwgWzQzLjY5NzU1MTcwMDAwMDAxLCAtNzkuNTAxNjYzMiwgODI5LjBdLCBbNDMuNzIxNzAyNiwgLTc5LjU3MTUxMDMsIDY5NC4wXSwgWzQzLjY2Mzg5MDgsIC03OS41MDM0ODY1OTk5OTk5OSwgMTkzLjBdLCBbNDMuNjU3MzA2NzAwMDAwMDEsIC03OS4zNzM0NTg5LCAzNjA5LjBdLCBbNDMuNjY2MzYyOCwgLTc5LjMxNjYwNDU5OTk5OTk4LCA2NDguMF0sIFs0My42NTgxMTE2MDAwMDAwMSwgLTc5LjQwMjAyMzMsIDEyOTMuMF0sIFs0My43Njg4NTYsIC03OS40NjY5MjY2LCA5NTEuMF0sIFs0My44MDc4MDQxMDAwMDAwMSwgLTc5LjIxNTU5OTA5OTk5OTk4LCAyMDI0LjBdLCBbNDMuNjQxNTUyLCAtNzkuNDc0NTQwNywgNjQ3LjBdLCBbNDMuNjk1MTMzMjAwMDAwMDEsIC03OS4zMDM0ODIxLCA4NTMuMF0sIFs0My42NTU4OCwgLTc5LjM2MzIyMDIsIDk4MC4wXSwgWzQzLjY2MzkwNjEsIC03OS4zODQxNTUyOTk5OTk5NywgNjMwMS4wXSwgWzQzLjY1MDA3MDIsIC03OS4zOTY4ODExLCAzMjYzLjBdLCBbNDMuNjk5MTMxLCAtNzkuMjU0MzMzNSwgMTQxMS4wXSwgWzQzLjc0OTQ4ODgsIC03OS41MzI3OTExLCA5NjguMF0sIFs0My42NzI0MzE5LCAtNzkuMzM0MTkwNDAwMDAwMDMsIDE5NDkuMF0sIFs0My43NzM2MTY3OTk5OTk5OSwgLTc5LjI2MTEzMTMsIDIyNzcuMF0sIFs0My42ODc4MjA0LCAtNzkuNDM0OTM2NDk5OTk5OTgsIDc4OC4wXSwgWzQzLjY1ODA3NzIwMDAwMDAxLCAtNzkuMzg0NzEyMiwgMzU2NC4wXSwgWzQzLjY0NDk1NDcsIC03OS4zOTc2NDQsIDU2NzQuMF0sIFs0My43NTY0MzkyLCAtNzkuMzYwNzcxMiwgOTE2LjBdLCBbNDMuNjYzNzIzLCAtNzkuMzcwNTIxNSwgMTExOS4wXSwgWzQzLjc2NjYwOTIsIC03OS4xODU2NjEzLCAyODU3LjBdLCBbNDMuNjk0MzY2NSwgLTc5LjI3MzY1MTEsIDE0MjcuMF0sIFs0My43NDM5OTE5LCAtNzkuNTk4ODY5MywgNDMzOC4wXSwgWzQzLjc2MzAyMzQsIC03OS4zMTc1Mjc4LCAyMzUwLjBdLCBbNDMuNzY4ODM3LCAtNzkuMzc4Mzc5Nzk5OTk5OTgsIDc5OC4wXSwgWzQzLjc0NjA3ODUsIC03OS4zODg2MjYxLCA0MjAuMF0sIFs0My43NTY1OTk0LCAtNzkuNTEyMDY5NywgMTk4MS4wXSwgWzQzLjY2NTkxNjQsIC03OS40MDc0NzA3LCAyOTA4LjBdLCBbNDMuNzY4MzgzLCAtNzkuMzQ5MDM3MiwgNDcyLjBdLCBbNDMuNzMzMzM3NCwgLTc5LjI2MzI5MDQwMDAwMDAyLCA4MDQuMF0sIFs0My43NjIxODQxLCAtNzkuMzIxMTUxNywgMTM3Ny4wXSwgWzQzLjgxMTUxOTYsIC03OS4zMTQ1NDQ3LCA2ODcuMF0sIFs0My43NzY4NjY5LCAtNzkuMzE2MjIzMDk5OTk5OTksIDEwMTYuMF0sIFs0My43MzgzNTc1LCAtNzkuMzA5NzgzOSwgNTk0LjBdLCBbNDMuNzUyNDc5NiwgLTc5LjU2MDczNzYsIDE1OTAuMF0sIFs0My43NDI5MzE0LCAtNzkuMjExMjk2MDk5OTk5OTgsIDEyNDEuMF0sIFs0My42ODIzMzg3LCAtNzkuNTI2NjAzNywgNTIxLjBdLCBbNDMuNzc1MTU3OSwgLTc5LjQxNDM4MjksIDE4NjcuMF0sIFs0My43MTMwNTA4LCAtNzkuNDExNzczNzAwMDAwMDMsIDQ2OC4wXSwgWzQzLjc3NzU5MTcsIC03OS4yMjY1Nzc3OTk5OTk5OSwgMzE1OC4wXSwgWzQzLjcxNzAyNTgsIC03OS41MzcyOTI1LCA2OTIuMF0sIFs0My43NDEyMzM4LCAtNzkuMjM3MjY2NSwgMTgwNC4wXSwgWzQzLjcwNjg2MzQsIC03OS4zMjA2MSwgOTcwLjBdLCBbNDMuNjAzMDA0NSwgLTc5LjUwNzQ4NDQwMDAwMDAyLCA4NDEuMF0sIFs0My43MTY1Nzk0LCAtNzkuMzMwMzc1NywgMTAwMS4wXSwgWzQzLjc5MTUxNTQsIC03OS4yOTgxMDMzLCAxNTcwLjBdLCBbNDMuNjQxMjI3NywgLTc5LjQyNjY3MzkwMDAwMDAzLCAxMjcyLjBdLCBbNDMuNjkzMjQ0OSwgLTc5LjUwNDY2OTIwMDAwMDAyLCA4NzAuMF0sIFs0My42ODQ0MjkyLCAtNzkuMzQ2OTIzOCwgNDY0LjBdLCBbNDMuNzg5OTEzMiwgLTc5LjIxNzQ1MywgODcxLjBdLCBbNDMuNjg1OTgxOCwgLTc5LjM1NjI5MjcsIDI5OS4wXSwgWzQzLjY5ODk5MzcsIC03OS40MzUwMzU3MDAwMDAwMSwgNTY4LjBdLCBbNDMuNzA3MjI1OCwgLTc5LjI5NTI4MDUsIDIxNjMuMF0sIFs0My43MzM1ODE1LCAtNzkuNDgzNzI2NSwgMjk3NC4wXSwgWzQzLjY0NDY1NzEsIC03OS41MzA3OTk5LCAyNTg5LjBdLCBbNDMuNzY4OTAxOCwgLTc5LjI4NTU1MzAwMDAwMDAyLCAxNzU2LjBdLCBbNDMuODAxOTMzMywgLTc5LjM1OTM5NzksIDY4Ny4wXSwgWzQzLjY5ODM0NTIwMDAwMDAxLCAtNzkuNTExMzE0NCwgMTQxMC4wXSwgWzQzLjc3OTc2OTksIC03OS40MTU1NzMwOTk5OTk5NywgMTI3NS4wXSwgWzQzLjY5NjI2MjQsIC03OS40NDc2ODUyMDAwMDAwMiwgMTExNy4wXSwgWzQzLjczMjM5NTIwMDAwMDAwNiwgLTc5LjQxOTQxMDcwMDAwMDAxLCAxMTM1LjBdLCBbNDMuNjUwNzgzNSwgLTc5LjQxMzQ5NzkwMDAwMDAyLCAxMjE3LjBdLCBbNDMuNzAwMzEzNiwgLTc5LjM4Njk3MDQ5OTk5OTk4LCA0MTMuMF0sIFs0My44MDEyNjk1LCAtNzkuMjk2NjAwMzAwMDAwMDIsIDE0MTQuMF0sIFs0My43MDU0NjM0LCAtNzkuNDAwMDkzMDk5OTk5OTgsIDMyNS4wXSwgWzQzLjY2ODQ2ODUsIC03OS40MzkwMzM1LCAyNDUwLjBdLCBbNDMuNjkyNDk3MywgLTc5LjMxNTczNDkwMDAwMDAyLCA0MzQuMF0sIFs0My44MTEwODg2LCAtNzkuMjY2MDA2NDk5OTk5OTcsIDEwMDguMF0sIFs0My42NjYxMDM0LCAtNzkuNTg3Njc3LCA2NzYuMF0sIFs0My43MDM1OTA0LCAtNzkuNDUyNDIzMDk5OTk5OTgsIDE1NzEuMF0sIFs0My42ODMxNzAzLCAtNzkuNDE4MzA0NDAwMDAwMDMsIDQ1Ny4wXSwgWzQzLjY0MDMzNTEsIC03OS40Mzc5MTk2LCAxNDE2LjBdLCBbNDMuNzc4NTYwNjAwMDAwMDEsIC03OS4zMjg3MDQ4LCA0MjEuMF0sIFs0My42OTEyMjcwMDAwMDAwMSwgLTc5LjQ3MDM5NzkwMDAwMDAyLCA2MTUuMF0sIFs0My42Nzg4NjcyOTk5OTk5OSwgLTc5LjMyNjgyMDQsIDg4NS4wXSwgWzQzLjc0NjgxNDcwMDAwMDAxLCAtNzkuNTgzODA4OTAwMDAwMDIsIDIyNTcuMF0sIFs0My43ODY1ODI5LCAtNzkuMTg4MzA4NzAwMDAwMDIsIDgxNi4wXSwgWzQzLjY1MDgxMDIsIC03OS41MjIzNjE4LCA0NTQuMF0sIFs0My43MjA1MTYyLCAtNzkuNDgwNzI4MSwgNDU5LjBdLCBbNDMuNzg1NzYyNzk5OTk5OTksIC03OS4yODk0NTkyMDAwMDAwMiwgMTMzMS4wXSwgWzQzLjc4NzY1MTEsIC03OS4zNTE2NTQwOTk5OTk5OCwgMTI4NS4wXSwgWzQzLjc3Mzg2MDksIC03OS40NDMwMDg0LCAxMDc4LjBdLCBbNDMuNjM5MDIyNzk5OTk5OTksIC03OS40MTU5MTY0MDAwMDAwMSwgMTMyNC4wXSwgWzQzLjY3MDMzNzcwMDAwMDAxLCAtNzkuNDU1Nzk1Mjk5OTk5OTgsIDcwNC4wXSwgWzQzLjcyMjI4MjQsIC03OS4yNjIxMjMxLCAxNTc3LjBdLCBbNDMuNzQwNzExMiwgLTc5LjQzODg3MzMsIDczNS4wXSwgWzQzLjY4MDExMDksIC03OS4yOTI1OTQ5LCAxNjkxLjBdLCBbNDMuNjkxODk4MywgLTc5LjQ1NjI1MzEsIDMyOC4wXSwgWzQzLjY4NjIzMzUsIC03OS4zOTMzMzM0LCAxNjI4LjBdLCBbNDMuNzQ4MjgzNCwgLTc5LjE5NTgzMTMsIDQwMi4wXSwgWzQzLjgwNDIyNTksIC03OS4xNjg3ODUxLCAxOTQwLjBdLCBbNDMuNjY2NDMxNCwgLTc5LjM3NjUwMywgMTUzMC4wXSwgWzQzLjc0NjkzMywgLTc5LjQzNDQxNzcsIDY0My4wXSwgWzQzLjcyOTA2MTEsIC03OS40NDU5OTE1LCA4NzMuMF0sIFs0My42NTkyMjkyOTk5OTk5OSwgLTc5LjUxNDEzNzMsIDQ3My4wXSwgWzQzLjczNTQxNjQsIC03OS4zNDcxMzc1LCA5MzguMF0sIFs0My42NzQ0MDgsIC03OS40MzM3ODQ1LCA2MjMuMF0sIFs0My42MTQyMDQ0LCAtNzkuNTE3MjcyOTAwMDAwMDIsIDIwNDAuMF0sIFs0My42OTU4MTYsIC03OS41NjI3MzY1LCAxMTE2LjBdLCBbNDMuNTkzNjYyMywgLTc5LjUzNzAwMjYsIDU1Ny4wXSwgWzQzLjc4MTYzOTEsIC03OS40NTUyOTk0LCA4MzcuMF0sIFs0My43MzM2ODA3LCAtNzkuMjI3MDEyNiwgMTAxNC4wXSwgWzQzLjcyNzY1MzUsIC03OS41NDk1Mzc3LCA1ODEuMF0sIFs0My42ODQyODgsIC03OS4zMTkyMzY4LCAxMTkxLjBdLCBbNDMuNjA1NjQ0MiwgLTc5LjUzODI2OSwgNDYwLjBdLCBbNDMuNjUxNjExMjk5OTk5OTksIC03OS40NzQwOTA2LCAxMDU3LjBdLCBbNDMuNjc3NTI0NjAwMDAwMDEsIC03OS4zNTg2NTAyLCA3MDkuMF0sIFs0My43NzQzNTMwMDAwMDAwMSwgLTc5LjQ5OTgwMTYsIDMxNDEuMF0sIFs0My42MzA5NzM3OTk5OTk5OSwgLTc5LjQ4MTUxNCwgOTQyLjBdLCBbNDMuNzA3NDc3NiwgLTc5LjM0MzYyNzkwMDAwMDAyLCA3NDYuMF0sIFs0My42NzE2NzI4LCAtNzkuNDkzNzUxNSwgMTIyNy4wXSwgWzQzLjY3ODUzOTMsIC03OS41NDQ4OTE0MDAwMDAwMywgMTA4MS4wXSwgWzQzLjY5NzM3NjMsIC03OS4zOTY0NjkxLCAxMjM1LjBdLCBbNDMuNzA1MTA4NiwgLTc5LjM3NDkzMTMsIDUwNy4wXSwgWzQzLjYyNzM0NiwgLTc5LjU2MjM3MDMsIDI5My4wXSwgWzQzLjY3MDg1NjUsIC03OS40NzUxOTY4LCAxMDQzLjBdLCBbNDMuNjg2ODcwNiwgLTc5LjQ2ODU3NDUsIDUwMy4wXSwgWzQzLjc0MzYzMzMsIC03OS41NzY0NzcwOTk5OTk5OCwgNjEyLjBdLCBbNDMuNzY2NDA3LCAtNzkuNDI1NzQzMDk5OTk5OTgsIDU0OC4wXSwgWzQzLjcyNzY2NDksIC03OS40MDYyMzQ3MDAwMDAwMSwgNDQ1LjBdLCBbNDMuNjc3NzgwMiwgLTc5LjQ1NTc5NTI5OTk5OTk4LCA4MTguMF0sIFs0My42OTQ1NDU3MDAwMDAwMDYsIC03OS4zMzUyNjYxLCA2MDAuMF0sIFs0My42NzI5Njk4LCAtNzkuMzQyMzkyLCA0MjUuMF0sIFs0My42ODU0MTM0LCAtNzkuNDE5MjM1MiwgMzYwLjBdLCBbNDMuNzA3NTUzOSwgLTc5LjUwNTExMTcwMDAwMDAxLCA3MTIuMF0sIFs0My42Njc3MzIyLCAtNzkuMzEwMzMzMywgODUzLjBdLCBbNDMuNjQ3MzA0NSwgLTc5LjQzMjcwODcsIDcwMy4wXSwgWzQzLjY1ODM0ODEwMDAwMDAxLCAtNzkuNDM0Nzc2MywgNjAyLjBdLCBbNDMuNjgwOTUwMjAwMDAwMDEsIC03OS4zOTM3NzU5MDAwMDAwMiwgMjM0LjBdLCBbNDMuNjY1NTI3MywgLTc5LjQ5OTIwNjUsIDUzNS4wXSwgWzQzLjc5MDcxODEwMDAwMDAxLCAtNzkuMTUyMTQ1NDAwMDAwMDIsIDMxMS4wXSwgWzQzLjY4NjA1OCwgLTc5LjQyNDc3NDIsIDM3MS4wXSwgWzQzLjY2MDUyNjMsIC03OS40MTQ2NjUyLCA3ODguMF0sIFs0My42NzMzMDE3LCAtNzkuNTUxNTQ0MjAwMDAwMDIsIDM2My4wXSwgWzQzLjYzODQzNTQsIC03OS41NjA5MjA3MDAwMDAwMywgNDUwLjBdLCBbNDMuNzkxMTMwMSwgLTc5LjM5MzM1NjMsIDQyOC4wXSwgWzQzLjY1MTU3NywgLTc5LjYwMzA5NiwgMjMuMF1dLAogICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgIG1pbk9wYWNpdHk6IDAuMiwKICAgICAgICAgICAgICAgICAgICBtYXhab29tOiAxMSwKICAgICAgICAgICAgICAgICAgICBtYXg6IDYzMDEsCiAgICAgICAgICAgICAgICAgICAgcmFkaXVzOiAzMCwKICAgICAgICAgICAgICAgICAgICBibHVyOiAyMCwKICAgICAgICAgICAgICAgICAgICBncmFkaWVudDogbnVsbAogICAgICAgICAgICAgICAgICAgIH0pCiAgICAgICAgICAgICAgICAuYWRkVG8obWFwXzUwMTRkOThjODQ5YTRkNTg5Y2VmNDViNmQzZjllZWRlKTsKICAgICAgICAKPC9zY3JpcHQ+" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div>
+
+<p>Consequentely, I created both visually appealing and interactive map of the most dens criminal places in the City. It is possible to click any cluster and zoom in and out to see places where you &ldquo;should not come&rdquo; :)</p>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/python/">python</a>
+  
+  <a class="badge badge-light" href="/tags/crime/">crime</a>
+  
+  <a class="badge badge-light" href="/tags/clustering/">clustering</a>
+  
+  <a class="badge badge-light" href="/tags/heatmap/">heatmap</a>
+  
+  <a class="badge badge-light" href="/tags/visualization/">visualization</a>
+  
+  <a class="badge badge-light" href="/tags/matplotlib/">matplotlib</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_hufb83aa85fc46043dba6c25a9ac125096_949376_250x250_fill_lanczos_center_2.png" itemprop="image" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="/">Jiri Stodulka</a></h5>
+      <h6 class="card-subtitle">Data Scientist and AI Devotee</h6>
+      <p class="card-text" itemprop="description">My data science interests include Artificial Inteligence, Machine Learning, Economics, and next-generation business solutions.</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://twitter.com/jiristo" target="_blank" rel="noopener">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/jiristo" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.9ef1b53ee2bde6c7f33b150c6ba4d452.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

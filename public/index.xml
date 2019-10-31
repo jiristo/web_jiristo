@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jiri Stodulka</title>
+    <link>https://jiristodulka.com/%60/</link>
+    <description>Recent content on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
+    
+	    <atom:link href="https://jiristodulka.com/%60/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Posts</title>
+      <link>https://jiristodulka.com/%60/post/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://jiristodulka.com/%60/project/</link>
+      <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link></link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AAAA</title>
+      <link>https://jiristodulka.com/%60/publication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/publication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Courses</title>
+      <link>https://jiristodulka.com/%60/courses/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/courses/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Recent &amp; Upcoming Talks</title>
+      <link>https://jiristodulka.com/%60/talk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/talk/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

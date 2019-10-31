@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AAAA on Jiri Stodulka</title>
+    <link>https://jiristodulka.com/%60/publication/</link>
+    <description>Recent content in AAAA on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    
+	    <atom:link href="https://jiristodulka.com/%60/publication/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

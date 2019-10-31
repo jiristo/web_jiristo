@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Inspiration on Jiri Stodulka</title>
+    <link>https://jiristodulka.com/%60/tags/inspiration/</link>
+    <description>Recent content in Inspiration on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    <lastBuildDate>Sun, 01 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://jiristodulka.com/%60/tags/inspiration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Shared Layers (Keras)</title>
+      <link>https://jiristodulka.com/%60/project/1st-sep-2019/</link>
+      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/1st-sep-2019/</guid>
+      <description>&lt;p&gt;Learned about &lt;strong&gt;shared layers&lt;/strong&gt; allowed by Keras API. They allow me to define an operation and then apply the exact same operation, with the exact same weights on different inputs. Can by used for time-series as well.
+I understand, defining multiple input layers for multiple entities (e.g. customer IDs) &lt;strong&gt;allows me to specify&lt;/strong&gt; how the data from each entity will be used differently later in this model. Now, I see an applied case in UFC. In data with UFC result for every match and fighter, I can teach the model to learn strength of every single fighter. Such that if any pair of fighters plays each other, I could predict the score, even if those two fighters have never fought before.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dashborads and LSTM</title>
+      <link>https://jiristodulka.com/%60/project/22st-aug-2019/</link>
+      <pubDate>Thu, 22 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jiristodulka.com/%60/project/22st-aug-2019/</guid>
+      <description>&lt;p&gt;Called with a colleague, Mirek. Mirek uses Azur, he showed me to run it. Pretty simple compared to AWS. Anyway, Mirek has built a TS model (with ARIMAX) predicting gold price. He is trying to challange his model with DL; specifically LSTM. We discussed parameters like batch size and number of samples. Quite exciting! I&amp;rsquo;ve once  read the best performance on TS data is usually achieved with combination of TS and DL models. On top of that, Mirek shared with me Bokeh library for dashboards. He says it&amp;rsquo;s simpler than Pyviz. I need to give it a try&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
