@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>matrix on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/tags/matrix/</link>
+    <link>/tags/matrix/</link>
     <description>Recent content in matrix on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Collaborative Filtering: Matrix Factorization Recommender System </title>
-      <link>https://jiristodulka.com/%60/post/recsys_cf/</link>
+      <link>/post/recsys_cf/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/recsys_cf/</guid>
+      <guid>/post/recsys_cf/</guid>
       <description>&lt;p&gt;This article targets anyone with previous exposure to machine learning but with little to no knowledge of the recommendation systems. However, it is highly probable that anyone interested in this work interacts with a recommender system regularly. Anyone who listens to Spotify or watches movies on Netflix benefits from the rigorous algorithms (recommendation systems) developed by teams of data scientists and software engineers. The theoretical part of the article explains the fundamentals of various recommendation systems. The practical section emphasizes practical usage of collaborative filtering while utilizing Surprise package and movie-lense data set. Specifically, the author creates two recommender systems utilizing i.) Singular Value Decomposition (SVD), ii.) Non-negative Matrix Factorization (NMF). Both models evaluate/determine users&#39; preferences based on principles of linear algebra.&lt;/p&gt;
 
 &lt;h1 id=&#34;theoretical-part&#34;&gt;Theoretical Part&lt;/h1&gt;

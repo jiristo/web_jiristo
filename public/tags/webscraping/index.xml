@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>webscraping on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/tags/webscraping/</link>
+    <link>/tags/webscraping/</link>
     <description>Recent content in webscraping on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Wed, 27 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/tags/webscraping/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/webscraping/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Web Scraping Reddit: Text (Sentiment) Analysis</title>
-      <link>https://jiristodulka.com/%60/post/web-scraping/web-scraping-reddit-text-sentiment-analysis/</link>
+      <link>/post/web-scraping/web-scraping-reddit-text-sentiment-analysis/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/web-scraping/web-scraping-reddit-text-sentiment-analysis/</guid>
+      <guid>/post/web-scraping/web-scraping-reddit-text-sentiment-analysis/</guid>
       <description>
-&lt;script src=&#34;https://jiristodulka.com/%60/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://jiristodulka.com/%60/rmarkdown-libs/wordcloud2/wordcloud.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://jiristodulka.com/%60/rmarkdown-libs/wordcloud2/wordcloud2-all.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://jiristodulka.com/%60/rmarkdown-libs/wordcloud2/hover.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://jiristodulka.com/%60/rmarkdown-libs/wordcloud2-binding/wordcloud2.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/wordcloud2/wordcloud.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/wordcloud2/wordcloud2-all.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/wordcloud2/hover.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/wordcloud2-binding/wordcloud2.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Canada recently joined few other countries that have completely decriminalized cannabis consumption, hence making it entirely legal. While many argued the Country has infringed a number of international agreements, others sang chorales. Whatever your attitude towards legalization of cannabis may be, there are one set of people that are definitely happy and they are the “Canadian Cannabis consumers”. However, only provincial, i.e. governmental, legal entities are allowed to sell and distribute marihuana products until April 2019. Marihuana consumers may not break the law while smoking or passing a joint any more. What were the sentiments tied to people in the early days of Cannabis legalization and when the consumers were allowed to make online orders? Did the new policies meet the users’ expectations? I am sure, some future and official studies will answer the question very soon. However, I attempted to find the answer on my own. In this post, I will explain how I scraped one of the biggest website forums - Reddit. Additionally, I will demonstrate how I performed a simple sentiment analysis on a tidy dataset I had created.&lt;/p&gt;
@@ -128,7 +128,7 @@ rm(url_words)&lt;/code&gt;&lt;/pre&gt;
   ggplot(aes(date,n_comments)) +
   geom_line(linetype = 1)+
   ggtitle(&amp;quot;Number of Comments in Time&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Numeber%20of%20Comments%20in%20Time%20and%20PLOT-1.png&#34; width=&#34;672&#34; /&gt; Unfortunately, the discussion was truly “alive” only a few weeks after October 17th. After the end of October 2018, new comments per day or even month were marginal.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Numeber%20of%20Comments%20in%20Time%20and%20PLOT-1.png&#34; width=&#34;672&#34; /&gt; Unfortunately, the discussion was truly “alive” only a few weeks after October 17th. After the end of October 2018, new comments per day or even month were marginal.&lt;/p&gt;
 &lt;p&gt;Even though I could not answer my initial questions in the full extent, I could focus on the cannabis consumers’ initial attitude. So how many comments were posted there?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;nrow(dataset) # n comments&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 460&lt;/code&gt;&lt;/pre&gt;
@@ -163,15 +163,15 @@ wordcloud2(backgroundColor = &amp;quot;black&amp;quot;, color = &amp;quot;green&
 ## 4   211     3
 ## 5   450     3&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;https://jiristodulka.com/%60/post/figure/458_iLoveyoumissmary.png&#34; /&gt;
+&lt;img src=&#34;/post/figure/458_iLoveyoumissmary.png&#34; /&gt;
 
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;https://jiristodulka.com/%60/post/figure/147_EatPastaSkateFasta.png&#34; /&gt;
+&lt;img src=&#34;/post/figure/147_EatPastaSkateFasta.png&#34; /&gt;
 
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;https://jiristodulka.com/%60/post/figure/163_thedommer.png&#34; /&gt;
+&lt;img src=&#34;/post/figure/163_thedommer.png&#34; /&gt;
 
 &lt;/div&gt;
 &lt;p&gt;These comments confirm my hypothesis that those words are closely related to the cannabis business. In addition, the author of these comments are concerned about their privacy while making a purchase. It seems like, they are not certain about the privacy involved in buying cannabis with their credit cards.&lt;/p&gt;
@@ -188,7 +188,7 @@ wordcloud2(backgroundColor = &amp;quot;black&amp;quot;, color = &amp;quot;green&
   coord_flip()+
   geom_text(aes(label = Comments))+
   ggtitle(&amp;quot;The Most Frequently Contributing Authors&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Most%20Frequent%20contributors%20PLOT-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Most%20Frequent%20contributors%20PLOT-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Because I was assuming these contributors have a substantial impact on positive and negative sentiments, I have decided to focus on the words they posted.&lt;/p&gt;
 &lt;p&gt;The plot below outlines the specific and most frequently used words by their authors. Bear in mind these words come from &lt;code&gt;nrc&lt;/code&gt; lexicon. Therefore, the words that were not contained in the lexicon were filtered out. However, the remaining words create the sentiments.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data_sentiment %&amp;gt;%
@@ -207,7 +207,7 @@ wordcloud2(backgroundColor = &amp;quot;black&amp;quot;, color = &amp;quot;green&
     scale_x_discrete(labels = function(x) gsub(&amp;quot;__.+$&amp;quot;, &amp;quot;&amp;quot;, x)) +
     facet_wrap(~ author, nrow = 2, scales = &amp;quot;free&amp;quot;) +
     coord_flip()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Word_Choice-1.png&#34; width=&#34;672&#34; /&gt; The output of the most frequently used words posted by individuals may be interesting. But to what extent is it insightful? One should know the specific sentiment these words annotate. The following chart displays counts of all the words from the previous scheme. Most importantly, these words are categorized within the sentiments from &lt;code&gt;nrc&lt;/code&gt; lexicon.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Word_Choice-1.png&#34; width=&#34;672&#34; /&gt; The output of the most frequently used words posted by individuals may be interesting. But to what extent is it insightful? One should know the specific sentiment these words annotate. The following chart displays counts of all the words from the previous scheme. Most importantly, these words are categorized within the sentiments from &lt;code&gt;nrc&lt;/code&gt; lexicon.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data_sentiment %&amp;gt;%
     # Count by word and author
     group_by(word,author)%&amp;gt;%
@@ -224,7 +224,7 @@ wordcloud2(backgroundColor = &amp;quot;black&amp;quot;, color = &amp;quot;green&
     facet_wrap(~ sentiment, scales = &amp;quot;free&amp;quot;) +
     coord_flip()+
     ylab(&amp;quot;Count&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Which_words_contribute_to_scores-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Which_words_contribute_to_scores-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;You can see that BioSector, ruglescdn, terrencemckenna, and frowawe express in a number of ways. Even though they do not express disgust or surprise too often, I could not determine what is their most common sentiment. Since a table is not as space demanding as any rigorous plot, the one mentioned below summarizes and counts sentiment related words by their authors.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data_sentiment %&amp;gt;%
     filter(author %in% c(&amp;quot;BioSector&amp;quot;, &amp;quot;ruglescdn&amp;quot;,  &amp;quot;terrencemckenna&amp;quot;, &amp;quot;frowawe&amp;quot; ))%&amp;gt;%
@@ -263,7 +263,7 @@ data_sentiment %&amp;gt;%
     geom_col(show.legend = FALSE) +
     facet_wrap(~ sentiment, nrow = 2, scales = &amp;quot;free&amp;quot;) +
     coord_flip()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The plot above discloses the information of authors, responsible for the greater portion of positive and negative comments. There are two things worthy of mention: i.) the two sets do not intersect so these authors are not ambiguous. ii.) there appears to be “no author” from the group of most frequent contributors.&lt;/p&gt;
 &lt;p&gt;I also assumed that BioSector, ruglescdn, terrencemckenna, and frowawe are the most popular ones or at least have posted the most popular comments.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#the Most Popular Comments
@@ -278,7 +278,7 @@ dataset %&amp;gt;%
 ## 4 172        [deleted]    16
 ## 5 184          jamagut    15&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To my surprise, no one appears in these two groups simultaneously.&lt;/p&gt;
-&lt;p&gt;To have an idea about what drives the participants to like someone’s comment, one should read them! Below are a few screenshots of the top 3 ranked comments: &lt;img src=&#34;https://jiristodulka.com/%60/post/figure/437_SirWinnipegger.png&#34; alt=&#34;center&#34; /&gt; SirWinnipegge complains about new prices in the local dispensary. Has he been buying weed on the black market for lower prices? If so, are the other cannabis users having the same experience? Then is legalizing marihuana an effective strategy to uproot black market cannabis trade? &lt;img src=&#34;https://jiristodulka.com/%60/post/figure/265_AgentChimendez.png&#34; alt=&#34;center&#34; /&gt; On the other hand, AgentChimendez celebrates the date: 10/17/2018 as the new milestone in Canadian history. He points out to the 20th of April, the World Cannabis Day, mostly referred to as 420. &lt;img src=&#34;https://jiristodulka.com/%60/post/figure/445_captain_deadfoot.png&#34; alt=&#34;center&#34; /&gt; Lastly, captain_deadfoot’s comment was liked because he reacted to someone else outside of Canada. He emphasizes how friendly Canadian black market prices are in contrast to other countries. Again, it seems like the black market has already been supplying cannabis for a friendly price. Should the government introduce price ceiling to effectively compete with the black market?&lt;/p&gt;
+&lt;p&gt;To have an idea about what drives the participants to like someone’s comment, one should read them! Below are a few screenshots of the top 3 ranked comments: &lt;img src=&#34;/post/figure/437_SirWinnipegger.png&#34; alt=&#34;center&#34; /&gt; SirWinnipegge complains about new prices in the local dispensary. Has he been buying weed on the black market for lower prices? If so, are the other cannabis users having the same experience? Then is legalizing marihuana an effective strategy to uproot black market cannabis trade? &lt;img src=&#34;/post/figure/265_AgentChimendez.png&#34; alt=&#34;center&#34; /&gt; On the other hand, AgentChimendez celebrates the date: 10/17/2018 as the new milestone in Canadian history. He points out to the 20th of April, the World Cannabis Day, mostly referred to as 420. &lt;img src=&#34;/post/figure/445_captain_deadfoot.png&#34; alt=&#34;center&#34; /&gt; Lastly, captain_deadfoot’s comment was liked because he reacted to someone else outside of Canada. He emphasizes how friendly Canadian black market prices are in contrast to other countries. Again, it seems like the black market has already been supplying cannabis for a friendly price. Should the government introduce price ceiling to effectively compete with the black market?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Least Popular Comments
 dataset %&amp;gt;%
   select(id, author,likes) %&amp;gt;%
@@ -290,8 +290,8 @@ dataset %&amp;gt;%
 ## 3  25     Hendrix194    -2
 ## 4  60      trekrlife    -2
 ## 5 348 Happyradish532    -2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/figure/297_dubs2112.png&#34; alt=&#34;center&#34; /&gt; I particularly enjoyed dubs2112’s comments! He/she was constantly bullied (disliked) by others in the discussion because he/she basically calls people stupid for buying legal cannabis products.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/figure/352_Justos.png&#34; alt=&#34;center&#34; /&gt; The other posts with dislikes appear in the same thread. Happyradish532 and Justos celebrate the shock that the black market might incur. They seem comfortable with paying more for legal cannabis since it is supposed to weaken the black market.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/figure/297_dubs2112.png&#34; alt=&#34;center&#34; /&gt; I particularly enjoyed dubs2112’s comments! He/she was constantly bullied (disliked) by others in the discussion because he/she basically calls people stupid for buying legal cannabis products.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/figure/352_Justos.png&#34; alt=&#34;center&#34; /&gt; The other posts with dislikes appear in the same thread. Happyradish532 and Justos celebrate the shock that the black market might incur. They seem comfortable with paying more for legal cannabis since it is supposed to weaken the black market.&lt;/p&gt;
 &lt;p&gt;Finally, let’s see how the sentiments - positive and negative - were developing during the first few weeks. This step was the most difficult one. First of all, I created a new data set &lt;code&gt;sentiment_by_time&lt;/code&gt; from &lt;code&gt;tidy_data&lt;/code&gt;. Since the time span for which the discussion was truly alive is really short, I rounded &lt;code&gt;date&lt;/code&gt; to the unit of days and called the new variable &lt;code&gt;date_floor&lt;/code&gt;. After grouping by &lt;code&gt;date_floor&lt;/code&gt;, I created another new variable &lt;code&gt;total_words&lt;/code&gt;, i.e. the number of total words per day. Again, I merged the data with &lt;code&gt;nrc&lt;/code&gt; lexicon.&lt;/p&gt;
 &lt;p&gt;In the next step, I filtered the positive and negative sentiments in &lt;code&gt;sentiment_by_time&lt;/code&gt;. Most importantly, I counted entries of the group: &lt;code&gt;date_floor&lt;/code&gt;, &lt;code&gt;sentiment&lt;/code&gt;, and &lt;code&gt;total_words&lt;/code&gt;, and created new variable &lt;code&gt;percent&lt;/code&gt; which is the ratio of counts per group and total words submitted in a day.&lt;/p&gt;
 &lt;p&gt;The purpose of this plot is to demonstrate the long-term development of positive vs. negative sentiment. Additionally, &lt;code&gt;method = &amp;quot;lm&amp;quot;&lt;/code&gt; regresses percent on time and plots slopes of the development curves. Unfortunately, the time span in my model is very short and I do not yet mak any conlusions.&lt;/p&gt;
@@ -320,7 +320,7 @@ sentiment_by_time %&amp;gt;%
     geom_smooth(method = &amp;quot;lm&amp;quot;, se = FALSE, lty = 2) +
     expand_limits(y = 0)+
     ggtitle(&amp;quot;Sentiment Over Time&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://jiristodulka.com/%60/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Sentiment%20over%20time%20Visual-1.png&#34; width=&#34;672&#34; /&gt; Nevertheless, it seems like positive and negative sentiments exhibit the same mild but positive slopes. Secondly, positive sentiment has much greater variation. Finally, both sentiments achieve their peaks shortly after October 22nd and decline later.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/web-scraping/2019-03-27-web-scraping-reddit-text-sentiment-analysis_files/figure-html/Sentiment%20over%20time%20Visual-1.png&#34; width=&#34;672&#34; /&gt; Nevertheless, it seems like positive and negative sentiments exhibit the same mild but positive slopes. Secondly, positive sentiment has much greater variation. Finally, both sentiments achieve their peaks shortly after October 22nd and decline later.&lt;/p&gt;
 &lt;p&gt;To see what stands behind the steep rise of positive sentiment, I found a few explanatory comments.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sentiment_by_time %&amp;gt;%
   filter(sentiment %in% c(&amp;quot;positive&amp;quot;,&amp;quot;negative&amp;quot;))%&amp;gt;%
@@ -348,7 +348,7 @@ sentiment_by_time %&amp;gt;%
 ## # … with 5 more variables: total_words &amp;lt;int&amp;gt;, sentiment &amp;lt;chr&amp;gt;, n &amp;lt;int&amp;gt;,
 ## #   percent &amp;lt;dbl&amp;gt;, max &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;First of all, we can see that the positive sentiment achieved its peak on October 25th and was caused by a post written by IntermolecularButter (comment id 13). Another important observation is the fact that even though the time span was 1 week, there were only 7 new comments during that time! Less comments stand for less number words, therefore &lt;code&gt;mutate(percent = n / total_words)&lt;/code&gt; may fluctuate a lot. Here, the peak is caused by the fact that the denominator was higher before October 22nd, resulting in a lower value of &lt;code&gt;percent&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Nonetheless, let’s see what IntermolecularButter posted. &lt;img src=&#34;https://jiristodulka.com/%60/post/figure/13_IntermolecularButter.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Nonetheless, let’s see what IntermolecularButter posted. &lt;img src=&#34;/post/figure/13_IntermolecularButter.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is not very insightful, is it? The main reason why this post creates a positive sentiment, in addition to the explanation of high variation, is because the twelve words from the comment are associated with positive sentiment! Only one word - illegal - is considered negative. On top of that, &lt;code&gt;sentiment&lt;/code&gt; was joined to the data set by &lt;code&gt;inner_join()&lt;/code&gt;. By default, the result is that the data frame filtered words that were not present in the lexicon. For example, I noticed the word “thanks”&amp;quot; is not in &lt;code&gt;nrc&lt;/code&gt; lexicon even though its connotation is definitely positive.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;conclusion&#34; class=&#34;section level6&#34;&gt;

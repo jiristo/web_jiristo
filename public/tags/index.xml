@@ -2,292 +2,292 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/tags/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>CF</title>
-      <link>https://jiristodulka.com/%60/tags/cf/</link>
+      <link>/tags/cf/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/cf/</guid>
+      <guid>/tags/cf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>factorization</title>
-      <link>https://jiristodulka.com/%60/tags/factorization/</link>
+      <link>/tags/factorization/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/factorization/</guid>
+      <guid>/tags/factorization/</guid>
       <description></description>
     </item>
     
     <item>
       <title>matrix</title>
-      <link>https://jiristodulka.com/%60/tags/matrix/</link>
+      <link>/tags/matrix/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/matrix/</guid>
+      <guid>/tags/matrix/</guid>
       <description></description>
     </item>
     
     <item>
       <title>NMF</title>
-      <link>https://jiristodulka.com/%60/tags/nmf/</link>
+      <link>/tags/nmf/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/nmf/</guid>
+      <guid>/tags/nmf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>recommender</title>
-      <link>https://jiristodulka.com/%60/tags/recommender/</link>
+      <link>/tags/recommender/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/recommender/</guid>
+      <guid>/tags/recommender/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SVD</title>
-      <link>https://jiristodulka.com/%60/tags/svd/</link>
+      <link>/tags/svd/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/svd/</guid>
+      <guid>/tags/svd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>system</title>
-      <link>https://jiristodulka.com/%60/tags/system/</link>
+      <link>/tags/system/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/system/</guid>
+      <guid>/tags/system/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Deep Learning</title>
-      <link>https://jiristodulka.com/%60/tags/deep-learning/</link>
+      <link>/tags/deep-learning/</link>
       <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/deep-learning/</guid>
+      <guid>/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Reinforcement Learning</title>
-      <link>https://jiristodulka.com/%60/tags/reinforcement-learning/</link>
+      <link>/tags/reinforcement-learning/</link>
       <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/reinforcement-learning/</guid>
+      <guid>/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Recommender System</title>
-      <link>https://jiristodulka.com/%60/tags/recommender-system/</link>
+      <link>/tags/recommender-system/</link>
       <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/recommender-system/</guid>
+      <guid>/tags/recommender-system/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Inspiration</title>
-      <link>https://jiristodulka.com/%60/tags/inspiration/</link>
+      <link>/tags/inspiration/</link>
       <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/inspiration/</guid>
+      <guid>/tags/inspiration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>clustering</title>
-      <link>https://jiristodulka.com/%60/tags/clustering/</link>
+      <link>/tags/clustering/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/clustering/</guid>
+      <guid>/tags/clustering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>crime</title>
-      <link>https://jiristodulka.com/%60/tags/crime/</link>
+      <link>/tags/crime/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/crime/</guid>
+      <guid>/tags/crime/</guid>
       <description></description>
     </item>
     
     <item>
       <title>folium</title>
-      <link>https://jiristodulka.com/%60/tags/folium/</link>
+      <link>/tags/folium/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/folium/</guid>
+      <guid>/tags/folium/</guid>
       <description></description>
     </item>
     
     <item>
       <title>heatmap</title>
-      <link>https://jiristodulka.com/%60/tags/heatmap/</link>
+      <link>/tags/heatmap/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/heatmap/</guid>
+      <guid>/tags/heatmap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
-      <link>https://jiristodulka.com/%60/tags/python/</link>
+      <link>/tags/python/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/python/</guid>
+      <guid>/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>toronto</title>
-      <link>https://jiristodulka.com/%60/tags/toronto/</link>
+      <link>/tags/toronto/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/toronto/</guid>
+      <guid>/tags/toronto/</guid>
       <description></description>
     </item>
     
     <item>
       <title>visualization</title>
-      <link>https://jiristodulka.com/%60/tags/visualization/</link>
+      <link>/tags/visualization/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/visualization/</guid>
+      <guid>/tags/visualization/</guid>
       <description></description>
     </item>
     
     <item>
       <title>classifier</title>
-      <link>https://jiristodulka.com/%60/tags/classifier/</link>
+      <link>/tags/classifier/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/classifier/</guid>
+      <guid>/tags/classifier/</guid>
       <description></description>
     </item>
     
     <item>
       <title>knn</title>
-      <link>https://jiristodulka.com/%60/tags/knn/</link>
+      <link>/tags/knn/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/knn/</guid>
+      <guid>/tags/knn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ML</title>
-      <link>https://jiristodulka.com/%60/tags/ml/</link>
+      <link>/tags/ml/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/ml/</guid>
+      <guid>/tags/ml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>randomforest</title>
-      <link>https://jiristodulka.com/%60/tags/randomforest/</link>
+      <link>/tags/randomforest/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/randomforest/</guid>
+      <guid>/tags/randomforest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>regression</title>
-      <link>https://jiristodulka.com/%60/tags/regression/</link>
+      <link>/tags/regression/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/regression/</guid>
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sklearn</title>
-      <link>https://jiristodulka.com/%60/tags/sklearn/</link>
+      <link>/tags/sklearn/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/sklearn/</guid>
+      <guid>/tags/sklearn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>supervised</title>
-      <link>https://jiristodulka.com/%60/tags/supervised/</link>
+      <link>/tags/supervised/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/supervised/</guid>
+      <guid>/tags/supervised/</guid>
       <description></description>
     </item>
     
     <item>
       <title>NLP</title>
-      <link>https://jiristodulka.com/%60/tags/nlp/</link>
+      <link>/tags/nlp/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/nlp/</guid>
+      <guid>/tags/nlp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>https://jiristodulka.com/%60/tags/r/</link>
+      <link>/tags/r/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/r/</guid>
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rvest</title>
-      <link>https://jiristodulka.com/%60/tags/rvest/</link>
+      <link>/tags/rvest/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/rvest/</guid>
+      <guid>/tags/rvest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sentimentanalysis</title>
-      <link>https://jiristodulka.com/%60/tags/sentimentanalysis/</link>
+      <link>/tags/sentimentanalysis/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/sentimentanalysis/</guid>
+      <guid>/tags/sentimentanalysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>textmining</title>
-      <link>https://jiristodulka.com/%60/tags/textmining/</link>
+      <link>/tags/textmining/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/textmining/</guid>
+      <guid>/tags/textmining/</guid>
       <description></description>
     </item>
     
     <item>
       <title>webscraping</title>
-      <link>https://jiristodulka.com/%60/tags/webscraping/</link>
+      <link>/tags/webscraping/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/tags/webscraping/</guid>
+      <guid>/tags/webscraping/</guid>
       <description></description>
     </item>
     

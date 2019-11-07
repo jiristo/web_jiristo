@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>regression on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/tags/regression/</link>
+    <link>/tags/regression/</link>
     <description>Recent content in regression on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Tue, 28 May 2019 19:26:32 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/tags/regression/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/regression/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Supervised Machine Learning With Scikit-learn and Diabetes</title>
-      <link>https://jiristodulka.com/%60/post/supervised-ml/</link>
+      <link>/post/supervised-ml/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/supervised-ml/</guid>
+      <guid>/post/supervised-ml/</guid>
       <description>
 
 &lt;p&gt;In this post, I will explore and configure a few classification algorithms (supervised machine learniIn this post, I will explore and configure a few classification algorithms (supervised machine learning). I originally wanted to apply ML and fit some models on diabetes data. The diabetes dataset is one of the most well known data available to ML enthusiasts for their learning purposes.

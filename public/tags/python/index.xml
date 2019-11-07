@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>python on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/tags/python/</link>
+    <link>/tags/python/</link>
     <description>Recent content in python on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Fri, 28 Jun 2019 19:26:32 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Toronto Crime and Folium</title>
-      <link>https://jiristodulka.com/%60/post/toronto-crime/</link>
+      <link>/post/toronto-crime/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/toronto-crime/</guid>
+      <guid>/post/toronto-crime/</guid>
       <description>
 
 &lt;p&gt;In this post, I will analyze major Crime Indicators in Toronto in years from 2014 to 2018. I obtained the publicly available data set from the Toronto Police Service. First, I will visually inspect the crime scene in the City. Specifically, I will use the Matplot library to demonstrate the composition of assaults. Additionally, I will mark the most criminal neighborhoods on the map while utilizing both the &lt;code&gt;MarkerCluster&lt;/code&gt; and &lt;code&gt;HeatMap&lt;/code&gt; as &lt;code&gt;plugins&lt;/code&gt; of folium package. Examining the criminal behavior on the map, shows the downtown as the area with the highest concentration of crime. On top of that, criminal neighborhoods can be easily clustered. Then, one can see that areas alongside the major routes exhibit high criminal activity as well.&lt;/p&gt;
@@ -375,10 +375,10 @@ m # call m to see the heat map with clusters
     
     <item>
       <title>Supervised Machine Learning With Scikit-learn and Diabetes</title>
-      <link>https://jiristodulka.com/%60/post/supervised-ml/</link>
+      <link>/post/supervised-ml/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/supervised-ml/</guid>
+      <guid>/post/supervised-ml/</guid>
       <description>
 
 &lt;p&gt;In this post, I will explore and configure a few classification algorithms (supervised machine learniIn this post, I will explore and configure a few classification algorithms (supervised machine learning). I originally wanted to apply ML and fit some models on diabetes data. The diabetes dataset is one of the most well known data available to ML enthusiasts for their learning purposes.

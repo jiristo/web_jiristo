@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/categories/python/</link>
+    <link>/categories/python/</link>
     <description>Recent content in Python on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/categories/python/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Collaborative Filtering: Matrix Factorization Recommender System </title>
-      <link>https://jiristodulka.com/%60/post/recsys_cf/</link>
+      <link>/post/recsys_cf/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/recsys_cf/</guid>
+      <guid>/post/recsys_cf/</guid>
       <description>&lt;p&gt;This article targets anyone with previous exposure to machine learning but with little to no knowledge of the recommendation systems. However, it is highly probable that anyone interested in this work interacts with a recommender system regularly. Anyone who listens to Spotify or watches movies on Netflix benefits from the rigorous algorithms (recommendation systems) developed by teams of data scientists and software engineers. The theoretical part of the article explains the fundamentals of various recommendation systems. The practical section emphasizes practical usage of collaborative filtering while utilizing Surprise package and movie-lense data set. Specifically, the author creates two recommender systems utilizing i.) Singular Value Decomposition (SVD), ii.) Non-negative Matrix Factorization (NMF). Both models evaluate/determine users&#39; preferences based on principles of linear algebra.&lt;/p&gt;
 
 &lt;h1 id=&#34;theoretical-part&#34;&gt;Theoretical Part&lt;/h1&gt;
@@ -897,10 +897,10 @@ predictions = algo_NMF.test(testset)
     
     <item>
       <title>Toronto Crime and Folium</title>
-      <link>https://jiristodulka.com/%60/post/toronto-crime/</link>
+      <link>/post/toronto-crime/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/toronto-crime/</guid>
+      <guid>/post/toronto-crime/</guid>
       <description>
 
 &lt;p&gt;In this post, I will analyze major Crime Indicators in Toronto in years from 2014 to 2018. I obtained the publicly available data set from the Toronto Police Service. First, I will visually inspect the crime scene in the City. Specifically, I will use the Matplot library to demonstrate the composition of assaults. Additionally, I will mark the most criminal neighborhoods on the map while utilizing both the &lt;code&gt;MarkerCluster&lt;/code&gt; and &lt;code&gt;HeatMap&lt;/code&gt; as &lt;code&gt;plugins&lt;/code&gt; of folium package. Examining the criminal behavior on the map, shows the downtown as the area with the highest concentration of crime. On top of that, criminal neighborhoods can be easily clustered. Then, one can see that areas alongside the major routes exhibit high criminal activity as well.&lt;/p&gt;
@@ -1258,10 +1258,10 @@ m # call m to see the heat map with clusters
     
     <item>
       <title>Supervised Machine Learning With Scikit-learn and Diabetes</title>
-      <link>https://jiristodulka.com/%60/post/supervised-ml/</link>
+      <link>/post/supervised-ml/</link>
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/supervised-ml/</guid>
+      <guid>/post/supervised-ml/</guid>
       <description>
 
 &lt;p&gt;In this post, I will explore and configure a few classification algorithms (supervised machine learniIn this post, I will explore and configure a few classification algorithms (supervised machine learning). I originally wanted to apply ML and fit some models on diabetes data. The diabetes dataset is one of the most well known data available to ML enthusiasts for their learning purposes.

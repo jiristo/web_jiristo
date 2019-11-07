@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/</link>
+    <link>/</link>
     <description>Recent content on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Posts</title>
-      <link>https://jiristodulka.com/%60/post/</link>
+      <link>/post/</link>
       <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/</guid>
+      <guid>/post/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Projects</title>
-      <link>https://jiristodulka.com/%60/project/</link>
+      <link>/project/</link>
       <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/project/</guid>
+      <guid>/project/</guid>
       <description></description>
     </item>
     
@@ -41,28 +41,28 @@
     
     <item>
       <title>AAAA</title>
-      <link>https://jiristodulka.com/%60/publication/</link>
+      <link>/publication/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/publication/</guid>
+      <guid>/publication/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Courses</title>
-      <link>https://jiristodulka.com/%60/courses/</link>
+      <link>/courses/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/courses/</guid>
+      <guid>/courses/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Recent &amp; Upcoming Talks</title>
-      <link>https://jiristodulka.com/%60/talk/</link>
+      <link>/talk/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://jiristodulka.com/%60/talk/</guid>
+      <guid>/talk/</guid>
       <description></description>
     </item>
     

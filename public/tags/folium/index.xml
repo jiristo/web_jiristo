@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>folium on Jiri Stodulka</title>
-    <link>https://jiristodulka.com/%60/tags/folium/</link>
+    <link>/tags/folium/</link>
     <description>Recent content in folium on Jiri Stodulka</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
     <lastBuildDate>Fri, 28 Jun 2019 19:26:32 -0400</lastBuildDate>
     
-	    <atom:link href="https://jiristodulka.com/%60/tags/folium/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/folium/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Toronto Crime and Folium</title>
-      <link>https://jiristodulka.com/%60/post/toronto-crime/</link>
+      <link>/post/toronto-crime/</link>
       <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
       
-      <guid>https://jiristodulka.com/%60/post/toronto-crime/</guid>
+      <guid>/post/toronto-crime/</guid>
       <description>
 
 &lt;p&gt;In this post, I will analyze major Crime Indicators in Toronto in years from 2014 to 2018. I obtained the publicly available data set from the Toronto Police Service. First, I will visually inspect the crime scene in the City. Specifically, I will use the Matplot library to demonstrate the composition of assaults. Additionally, I will mark the most criminal neighborhoods on the map while utilizing both the &lt;code&gt;MarkerCluster&lt;/code&gt; and &lt;code&gt;HeatMap&lt;/code&gt; as &lt;code&gt;plugins&lt;/code&gt; of folium package. Examining the criminal behavior on the map, shows the downtown as the area with the highest concentration of crime. On top of that, criminal neighborhoods can be easily clustered. Then, one can see that areas alongside the major routes exhibit high criminal activity as well.&lt;/p&gt;
