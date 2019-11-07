@@ -98,5 +98,5 @@ subtitle = ""
 
 
 {{% alert note %}}
-This section follows my progress and insights in Deep Learning and Deep Neural Network based recommeder systems.
+The section is in development. I am hustling on multiple articles. Meanwhile, watch [🐕🐈](https://www.youtube.com/watch?v=jW8gc2NTqBE).
 {{% /alert %}}
