@@ -7,10 +7,46 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
-    <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2020 19:12:37 -0400</lastBuildDate>
     
 	    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bagging</title>
+      <link>/tags/bagging/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/bagging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ensemble</title>
+      <link>/tags/ensemble/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/ensemble/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>random forest</title>
+      <link>/tags/random-forest/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/random-forest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>time-series</title>
+      <link>/tags/time-series/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/time-series/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>CF</title>
@@ -198,6 +234,15 @@
       <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
       
       <guid>/tags/supervised/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Articles</title>
+      <link>/tags/articles/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/articles/</guid>
       <description></description>
     </item>
     

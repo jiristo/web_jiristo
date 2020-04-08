@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Data Scientist & Research Associate     
+role: Data Scientist     
 
 # Organizations/Affiliations
 organizations:
@@ -22,9 +22,11 @@ organizations:
 bio: Former athlete passionate about Artificial Inteligence, Machine Learning, Economics, and next-generation business solutions.
 
 interests:
-- Artificial Intelligence
+- Recommender system
+- Deep Learning
 - Data Science
 - Economics
+- Research
 
 education:
   courses:
@@ -82,5 +84,4 @@ user_groups:
 - Researchers
 - Visitors
 ---
-I am a data scientist and research associate with a master's degree in Applied Economics. Consequently, I am passionate about technology and data that generate economic value. Currently, I work on deep learning based recommender systems with A.I. Socratic Circles (AISC) research team. I solve business problems through the broad-based application of data science and creativity. For example, I co-developed a launch sequence (genetic algorithm) for innovative drugs. The solution helps a European pharmaceutic company to maximize product revenue by 17%.
-
+I am a data scientist with a master's degree in Applied Economics. Consequently, I am passionate about technology and data that generate economic value. Currently, I am working on two projects at two different companies; forecasting engine and a recommender system respectively. I solve business problems through the broad-based application of data science and creativity. For example, I use visualization tools to encover insight that can later I embed into robust models but still explainable models. 

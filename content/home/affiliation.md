@@ -16,7 +16,7 @@ height = ""
 # Slides.
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
-  title = "Research Associate"
+  title = "Active Member"
   #content = ""
   align = "center"  # Choose `center`, `left`, or `right`.
 

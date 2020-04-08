@@ -7,7 +7,7 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
-    <lastBuildDate>Sun, 13 Oct 2019 19:12:37 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2020 19:12:37 -0400</lastBuildDate>
     
 	    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,9 +15,18 @@
     <item>
       <title>Posts</title>
       <link>/post/</link>
-      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
       
       <guid>/post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/project/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/project/</guid>
       <description></description>
     </item>
     

@@ -12,6 +12,7 @@ title = "Public"
 subtitle = ""
 +++
 ## Appearances
+* Sep 30th 2019: Presenter [AISC Abstract Night and Social](https://youtu.be/YPkyU2HodBg?t=252) 
 * Aug 08th 2019: Presenter [SharpestMinds Toronto Meetup](https://www.sharpestminds.com/)
 * Jun 2Oth 2019: Presenter [AISC Abstract Night and Social](https://youtu.be/JZLpr0jNrKo?t=4400) 
 

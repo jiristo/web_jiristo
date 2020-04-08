@@ -32,11 +32,11 @@ subtitle = ""
    #[[content.filter_button]]
     # name = "All"
      #tag = "*"
-
-   [[content.filter_button]]
-     name = "Inspiration"
-     tag = "Inspiration"
-       
+     
+  [[content.filter_button]]
+     name = "Articles"
+     tag = "Articles"  
+     
   
    [[content.filter_button]]
      name = "Deep Learning"
@@ -47,9 +47,10 @@ subtitle = ""
      name = "Recommender System"
      tag = "Recommender System"
      
-  [[content.filter_button]]
-     name = "Articles"
-     tag = "Articles"     
+     
+   [[content.filter_button]]
+     name = "Inspiration"
+     tag = "Inspiration"   
      
    [[content.filter_button]]
      name = "Other"
@@ -98,5 +99,5 @@ subtitle = ""
 
 
 {{% alert note %}}
-The section is in development. I am hustling on multiple articles. Meanwhile, watch [🐕🐈](https://www.youtube.com/watch?v=jW8gc2NTqBE).
+The section is in development. Meanwhile, watch [🐕🐈](https://www.youtube.com/watch?v=jW8gc2NTqBE).
 {{% /alert %}}

@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="Data Scientist &amp; Research Associate">
+  <meta name="description" content="Data Scientist">
 
   
   <link rel="alternate" hreflang="en-us" href="/project/">
@@ -116,10 +116,10 @@
   <meta property="og:site_name" content="Jiri Stodulka">
   <meta property="og:url" content="/project/">
   <meta property="og:title" content="Projects | Jiri Stodulka">
-  <meta property="og:description" content="Data Scientist &amp; Research Associate"><meta property="og:image" content="/img/icon-192.png">
+  <meta property="og:description" content="Data Scientist"><meta property="og:image" content="/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2019-09-30T00:00:00&#43;00:00">
+  <meta property="og:updated_time" content="2019-04-27T00:00:00&#43;00:00">
   
 
   
@@ -419,107 +419,16 @@
   
   
   <div>
-    <h2><a href="/project/30th-sep-2019/">COBRA (DRL)</a></h2>
+    <h2><a href="/project/policy_gradient/">Combining policy gradient and Q-learning</a></h2>
     <div class="article-style">
       
-      Research article available eher: https://arxiv.org/abs/1905.09275 
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/13th-sep-2019/">MLP, AE, RNN</a></h2>
-    <div class="article-style">
-      
-      Returned to Toronto from Europe on Tuesday. I have been recently studying amazing review of recent efforts on deep learning based recommender systems: Deep Learning based Recommender System: A Surve and New Perspectives published by Shuai Zhang et al. So why DL based recsys? Firstly, DL models are end-to-end differentiable, secondly they provide suitable inductive biases. Therefore, DL models can exploit inherent structures if there are any. I particularly like MLP for its simplicity and capability to learn hierarchical features.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/8th-sep-2019/">Deep Learning based Recommender System</a></h2>
-    <div class="article-style">
-      
-      Called with Omar yesterday. He will finish editing my post about matrix factorization recommender system in a week. I really need to publish it. It&rsquo;s been already three months from my last post. Definitely, I will follow up with smth. regarding DL. There is good repository on Wikipedia: List of datasets for machine-learning research. Now it&rsquo;s time to focus on &ldquo;Deep Learning based Recommender System: A Survey and New Perspectives&rdquo; by Zhang et al.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/2nd-sep-2019/">Embedding Layers &amp; Shared Models (Keras)</a></h2>
-    <div class="article-style">
-      
-      Keras models can have both trainable and fixed parameters. Fewer trainable parameters are less flexibel but at the same time less likely to overfit. Trainable parameters are usually in dense layers. Due to an embedding layer in the model (input) and dense layer (with e.g. 4 parameters), the model has much more trainable parameters. Embedding layers often add a large number of trainable parameters into the model (be cautious of overfitting).
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/1st-sep-2019/">Shared Layers (Keras)</a></h2>
-    <div class="article-style">
-      
-      Learned about shared layers allowed by Keras API. They allow me to define an operation and then apply the exact same operation, with the exact same weights on different inputs. Can by used for time-series as well. I understand, defining multiple input layers for multiple entities (e.g. customer IDs) allows me to specify how the data from each entity will be used differently later in this model. Now, I see an applied case in UFC.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/29th-aug-2019/">Dense Layer (Keras)</a></h2>
-    <div class="article-style">
-      
-      Continuing with DL. Both theory and practice. When it comes to DL network: dense layers learn a weight matrix, where the first dimension of the matrix is the dimension of the input data, and the second dimension is the dimension of the output data. Defining tensor output in one line
-from keras.layers import Input, Dense input_tensor = Input(shape=(1,)) output_tensor = Dense(1)(input_tensor)  When it comes to loss function, mean absolute error is a good general function for a keras model.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/28th-aug-2019/">Softmax</a></h2>
-    <div class="article-style">
-      
-      Could not sleep because of a jetlag. So I started playing with compiling DL model. In binary classification I use softmax function for probability distribution. However, softmax is not zero centered! The neuron always fires. I am still continuing with Keras and plying with different parameters in fine-tuning my medel. I.e. for optimizer I use &ldquo;adam&rdquo; and loss function compute through &ldquo;class entropy&rdquo;. I am actually thinking I should start using PyTorch, instead NumPy, for running computations on GPU and PySpark (as once Dwight Gunning from FINRA has recommended me while having a meeting).
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/27th-aug-2019/">Activation Function ReLu</a></h2>
-    <div class="article-style">
-      
-      Activation function: Inputs (variables or outputs of neurons) get weights. If the dot product of these weights is higher than certain value, the activation function simulata if the neuros fire or not. Activation function is close to a sigmoid function (e.g. square root function), so the output is between 0 and 1. Activation function captures non-linearities. Classification: Dog (0.71) or cat(0.29), i.e. 71% confidence the object is a dog. So why to use DL instead of linear regression?
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/23rd-aug-2019/">Advanced Deep Learning with Keras in Python</a></h2>
-    <div class="article-style">
-      
-      I am geting back to DataCamp. I&rsquo;ve figured out that following relevant tracks (e.g. DL for now) with combination of reading articles and watching videos is one of the most effective learning paths when the starting point and direction are unknown. I also connected and had a call with two other data scientist. Daniel&rsquo;s from Ottawa, has a PhD in Computer Sciences. It turned out he knows the same folks in Toronto, mostly through following AISC.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/22st-aug-2019/">Dashborads and LSTM</a></h2>
-    <div class="article-style">
-      
-      Called with a colleague, Mirek. Mirek uses Azur, he showed me to run it. Pretty simple compared to AWS. Anyway, Mirek has built a TS model (with ARIMAX) predicting gold price. He is trying to challange his model with DL; specifically LSTM. We discussed parameters like batch size and number of samples. Quite exciting! I&rsquo;ve once read the best performance on TS data is usually achieved with combination of TS and DL models.
+      This blog post is the collective work of the participants of the “RL” workshop organized by Aggregate Intellect.
       
     </div>
   </div>
   
 
   
-<nav>
-  <ul class="pagination justify-content-center">
-    
-    
-    <li class="page-item"><a class="page-link" href="/project/page/2/">&raquo;</a></li>
-    
-  </ul>
-</nav>
-
 
 </div>
 
@@ -643,7 +552,7 @@ from keras.layers import Input, Dense input_tensor = Input(shape=(1,)) output_te
   
 
   <p class="powered-by">
-    &copy; 2019 Jiri Stodulka &middot; 
+    &copy; 2020 Jiri Stodulka &middot; 
 All opinions and views are my own and do not represent my employer &middot;
  Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
