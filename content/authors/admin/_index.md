@@ -23,8 +23,6 @@ bio: Former athlete passionate about Artificial Inteligence, Machine Learning, E
 
 interests:
 - Recommender system
-- Deep Learning
-- Data Science
 - Economics
 - Research
 
@@ -84,4 +82,4 @@ user_groups:
 - Researchers
 - Visitors
 ---
-I am a data scientist with a master's degree in Applied Economics. Consequently, I am passionate about technology and data that generate economic value. Currently, I am working on two projects at two different companies; forecasting engine and a recommender system respectively. I solve business problems through the broad-based application of data science and creativity. For example, I use visualization tools to encover insight that can later I embed into robust models but still explainable models. 
+I am a Data Scientist  passionate about technology and data that generate economic value. I solve business problems through the broad-based application of data science and creativity. For example, I am experienced in solving a cold-start problem in a recommender system.

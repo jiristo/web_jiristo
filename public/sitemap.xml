@@ -18,12 +18,82 @@
   </url>
   
   <url>
-    <loc>/tags/bagging/</loc>
-    <lastmod>2020-04-07T19:12:37-04:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>/tags/deployment/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/end-to-end/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/emotionally_aware_recommender/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nlp/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/python/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/recommender-system/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-08-23T19:12:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/cognitive-model-priors-for-predicting-human-decisions/</loc>
+    <lastmod>2020-07-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ml-in-economics/</loc>
+    <lastmod>2020-07-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2020-07-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/transformation_interview/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/inspiration/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/bagging/</loc>
     <lastmod>2020-04-07T19:12:37-04:00</lastmod>
   </url>
   
@@ -33,27 +103,7 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-04-07T19:12:37-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-04-07T19:12:37-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/python/</loc>
-    <lastmod>2020-04-07T19:12:37-04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/random-forest/</loc>
-    <lastmod>2020-04-07T19:12:37-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-04-07T19:12:37-04:00</lastmod>
   </url>
   
@@ -195,16 +245,6 @@
   <url>
     <loc>/project/policy_gradient/</loc>
     <lastmod>2019-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/</loc>
-    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/nlp/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>

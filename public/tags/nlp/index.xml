@@ -7,10 +7,29 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
-    <lastBuildDate>Wed, 27 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 19:12:37 -0400</lastBuildDate>
     
 	    <atom:link href="/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>End-to-End Project: Emotionally Aware Movie Recommender</title>
+      <link>/post/emotionally_aware_recommender/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/post/emotionally_aware_recommender/</guid>
+      <description>&lt;p&gt;&amp;quot;We want to enable the user to utilize their  own emotional state to browse their personalized movie recommendations faster and without external research.&amp;quot;&amp;quot;
+The work and deployed model was introduced as the capstone project for the Product Workshop facilitated by the Aggregate Intelecet Socratic Circles &lt;a href=&#34;#AISC&#34;&gt;&lt;/a&gt; &lt;a href=&#34;https://aisc.ai.science/&#34;&gt;https://aisc.ai.science/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;a href=&#34;https://github.com/jiristo/fast_film_movie_recommender/&#34; target=&#34;_blank&#34;&gt;GittHub Repository&lt;/a&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;iframe width=&#34;1020&#34; height=&#34;500&#34; src=&#34;https://www.youtube.com/embed/h_Xn0TBIRdc&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+</description>
+    </item>
     
     <item>
       <title>Web Scraping Reddit: Text (Sentiment) Analysis</title>

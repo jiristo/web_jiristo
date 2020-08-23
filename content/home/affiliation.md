@@ -16,7 +16,7 @@ height = ""
 # Slides.
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
-  title = "Active Member"
+  title = "ML in Economics Stream Owner"
   #content = ""
   align = "center"  # Choose `center`, `left`, or `right`.
 

@@ -29,9 +29,9 @@ subtitle = ""
   # Default filter index (e.g. 0 corresponds to the first `[[filter_button]]` instance below).
   filter_default = 0
   
-   #[[content.filter_button]]
-    # name = "All"
-     #tag = "*"
+   [[content.filter_button]]
+    name = "All"
+    tag = "*"
      
   [[content.filter_button]]
      name = "Articles"
@@ -39,13 +39,13 @@ subtitle = ""
      
   
    [[content.filter_button]]
-     name = "Deep Learning"
-     tag = "Deep Learning"
+     name = "ML in Economics"
+     tag = "ML in Economics"
      
      
-   [[content.filter_button]]
-     name = "Recommender System"
-     tag = "Recommender System"
+#   [[content.filter_button]]
+#     name = "Recommender System"
+#     tag = "Recommender System"
      
      
    [[content.filter_button]]
@@ -96,8 +96,3 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-
-
-{{% alert note %}}
-The section is in development. Meanwhile, watch [🐕🐈](https://www.youtube.com/watch?v=jW8gc2NTqBE).
-{{% /alert %}}

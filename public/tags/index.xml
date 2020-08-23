@@ -7,10 +7,64 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
-    <lastBuildDate>Tue, 07 Apr 2020 19:12:37 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 19:12:37 -0400</lastBuildDate>
     
 	    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>deployment</title>
+      <link>/tags/deployment/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>end-to-end</title>
+      <link>/tags/end-to-end/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/end-to-end/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NLP</title>
+      <link>/tags/nlp/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recommender system</title>
+      <link>/tags/recommender-system/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/recommender-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML in Economics</title>
+      <link>/tags/ml-in-economics/</link>
+      <pubDate>Fri, 24 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ml-in-economics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Inspiration</title>
+      <link>/tags/inspiration/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/inspiration/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>bagging</title>
@@ -243,15 +297,6 @@
       <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/articles/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NLP</title>
-      <link>/tags/nlp/</link>
-      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/nlp/</guid>
       <description></description>
     </item>
     

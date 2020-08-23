@@ -29,6 +29,7 @@ projects: []
 markup: mmark
 ---
 
+Recently, I was working on a project while using bagging tree-based algorithms for low-frequency time-series data. Originally, the data set contained only three variables for each series. However, given the nature of time-series data stored in the wide formar, I succeeded in engineeing 300 more features. 
+The presentation was first introduced during an online session organized by the Aggregate Intelect Socratic Circles (#AISC) https://aisc.ai.science/
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lanTlc8pqQ0" frameborder="30" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<iframe width="1020" height="500" src="https://www.youtube.com/embed/9inNZbsAhfg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

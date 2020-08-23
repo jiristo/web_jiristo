@@ -7,10 +7,29 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
-    <lastBuildDate>Tue, 07 Apr 2020 19:12:37 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 19:12:37 -0400</lastBuildDate>
     
 	    <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>End-to-End Project: Emotionally Aware Movie Recommender</title>
+      <link>/post/emotionally_aware_recommender/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/post/emotionally_aware_recommender/</guid>
+      <description>&lt;p&gt;&amp;quot;We want to enable the user to utilize their  own emotional state to browse their personalized movie recommendations faster and without external research.&amp;quot;&amp;quot;
+The work and deployed model was introduced as the capstone project for the Product Workshop facilitated by the Aggregate Intelecet Socratic Circles &lt;a href=&#34;#AISC&#34;&gt;&lt;/a&gt; &lt;a href=&#34;https://aisc.ai.science/&#34;&gt;https://aisc.ai.science/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;a href=&#34;https://github.com/jiristo/fast_film_movie_recommender/&#34; target=&#34;_blank&#34;&gt;GittHub Repository&lt;/a&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;iframe width=&#34;1020&#34; height=&#34;500&#34; src=&#34;https://www.youtube.com/embed/h_Xn0TBIRdc&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+</description>
+    </item>
     
     <item>
       <title>Video Presentation: Multi-variate (15,000) Time-Series Forecasting for Inventory Items</title>
@@ -18,7 +37,10 @@
       <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
       
       <guid>/post/time-series-bagging/</guid>
-      <description>&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/lanTlc8pqQ0&#34; frameborder=&#34;30&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+      <description>&lt;p&gt;Recently, I was working on a project while using bagging tree-based algorithms for low-frequency time-series data. Originally, the data set contained only three variables for each series. However, given the nature of time-series data stored in the wide formar, I succeeded in engineeing 300 more features.
+The presentation was first introduced during an online session organized by the Aggregate Intelect Socratic Circles &lt;a href=&#34;#AISC&#34;&gt;&lt;/a&gt; &lt;a href=&#34;https://aisc.ai.science/&#34;&gt;https://aisc.ai.science/&lt;/a&gt;&lt;/p&gt;
+
+&lt;iframe width=&#34;1020&#34; height=&#34;500&#34; src=&#34;https://www.youtube.com/embed/9inNZbsAhfg&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
 </description>
     </item>
     

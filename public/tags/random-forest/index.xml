@@ -18,7 +18,10 @@
       <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
       
       <guid>/post/time-series-bagging/</guid>
-      <description>&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/lanTlc8pqQ0&#34; frameborder=&#34;30&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+      <description>&lt;p&gt;Recently, I was working on a project while using bagging tree-based algorithms for low-frequency time-series data. Originally, the data set contained only three variables for each series. However, given the nature of time-series data stored in the wide formar, I succeeded in engineeing 300 more features.
+The presentation was first introduced during an online session organized by the Aggregate Intelect Socratic Circles &lt;a href=&#34;#AISC&#34;&gt;&lt;/a&gt; &lt;a href=&#34;https://aisc.ai.science/&#34;&gt;https://aisc.ai.science/&lt;/a&gt;&lt;/p&gt;
+
+&lt;iframe width=&#34;1020&#34; height=&#34;500&#34; src=&#34;https://www.youtube.com/embed/9inNZbsAhfg&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
 </description>
     </item>
     
