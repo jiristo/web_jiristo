@@ -22,8 +22,11 @@ organizations:
 bio: Former athlete passionate about Artificial Inteligence, Machine Learning, Economics, and next-generation business solutions.
 
 interests:
-- Recommender system
-- Economics
+# renament in index.html as Experience
+- End-to-end ML Product
+- Deployment
+- Recommender Engine
+- Applied Economics
 - Research
 
 education:
@@ -82,4 +85,4 @@ user_groups:
 - Researchers
 - Visitors
 ---
-I am a Data Scientist  passionate about technology and data that generate economic value. I solve business problems through the broad-based application of data science and creativity. For example, I am experienced in solving a cold-start problem in a recommender system.
+I am a Data Scientist  passionate about Machine Learning and product development that generate economic value. I solve business problems through the broad-based application of data science and creativity. For example, I am experienced in solving a cold-start problem in a recommender system.

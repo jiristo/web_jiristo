@@ -70,7 +70,7 @@
 # About widget
 
 - id: interests
-  translation: Interests
+  translation: Experience
 
 - id: education
   translation: Education
