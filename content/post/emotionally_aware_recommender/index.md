@@ -33,7 +33,7 @@ markup: mmark
 The work and deployed model was introduced as the capstone project for the Product Workshop facilitated by the Aggregate Intelecet Socratic Circles (#AISC) https://aisc.ai.science/. 
 
 {{% alert note %}}
-[GittHub Repository](https://github.com/jiristo/fast_film_movie_recommender/).
+[GitgtHub Repository](https://github.com/jiristo/fast_film_movie_recommender/).
 {{% /alert %}}
 
 <iframe width="1020" height="500" src="https://www.youtube.com/embed/h_Xn0TBIRdc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
