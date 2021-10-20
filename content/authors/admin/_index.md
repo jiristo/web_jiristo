@@ -86,9 +86,9 @@ user_groups:
 - Visitors
 ---
 
-I am a Data Scientist with a master's degree in Applied Economics. Currently, I work as a full time data scientist at SGS & Co and facilitating transformation with AI. Working with text and graphical data, I am personally responsible for R&D of various ML features and solutions in production.
+I am a Data Scientist with a master's degree in Applied Economics. Currently, I work as a full-time data scientist at [SGS & Co](https://www.sgsco.com/) and facilitate transformation towards AI and ML. Working with text and graphical data, I am personally responsible for R&D of various ML features and solutions in production.
 
-With Aggregate Intellect, I facilitate discussion groups about various topics in AI and contribute to open-source. I am also a mentor with [Sharpest minds](https://app.sharpestminds.com/mentor-bio/jiri-stodulka). I offer 1-on-1 mentorshi with aspiring ML/Data Scientist!
+With [Aggregate Intellect](https://ai.science/), I facilitate discussion groups about various topics in AI and contribute to open-source. With [Sharpest minds](https://app.sharpestminds.com/mentor-bio/jiri-stodulka), **I offer 1-on-1 mentorship with aspiring ML/Data Scientist!**
 
 
 

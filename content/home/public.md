@@ -12,7 +12,7 @@ title = "Public"
 subtitle = ""
 +++
 ## Appearances
-I am a very active member of [Aggregate Intellect](https://ai.science/)! If are eager to *"stop searching alone and start building together"*, join the 10K+ community in our [Slack](https://aisc-to.slack.com/join/shared_invite/zt-f5zq5l35-PSIJTFk4v60FML177PgsPg#/shared-invite/email) channel!
+I am a very active member of [Aggregate Intellect](https://ai.science/)! If you are eager to *"stop searching alone and start building together"*, join the 10K+ community in our [Slack](https://aisc-to.slack.com/join/shared_invite/zt-f5zq5l35-PSIJTFk4v60FML177PgsPg#/shared-invite/email) channel!
 
 <a class="twitter-timeline" data-height="400" href="https://twitter.com/jiristo?ref_src=twsrc%5Etfw">Tweets by jiristo</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
