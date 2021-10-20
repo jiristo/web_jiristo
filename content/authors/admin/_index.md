@@ -23,11 +23,11 @@ bio: Former athlete passionate about Artificial Inteligence, Machine Learning, E
 
 interests:
 # renament in index.html as Experience
-- End-to-end ML Product
-- Deployment
+- End-to-end ML production
 - Recommender Engine
 - Applied Economics
-- Research
+- NLP
+- CV
 
 education:
   courses:
@@ -85,4 +85,15 @@ user_groups:
 - Researchers
 - Visitors
 ---
-I am a Data Scientist  passionate about Machine Learning and product development that generate economic value. I solve business problems through the broad-based application of data science and creativity. For example, I am experienced in solving a cold-start problem in a recommender system.
+
+I am a Data Scientist with a master's degree in Applied Economics. Currently, I work as a full time data scientist at SGS & Co and facilitating transformation with AI. Working with text and graphical data, I am personally responsible for R&D of various ML features and solutions in production.
+
+With Aggregate Intellect, I facilitate discussion groups about various topics in AI and contribute to open-source. I am also a mentor with [Sharpest minds](https://app.sharpestminds.com/mentor-bio/jiri-stodulka). I offer 1-on-1 mentorshi with aspiring ML/Data Scientist!
+
+
+
+
+
+
+
+

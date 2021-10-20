@@ -39,8 +39,13 @@ subtitle = ""
      
   
    [[content.filter_button]]
-     name = "ML in Economics"
-     tag = "ML in Economics"
+     name = "Live Sessions"
+     tag = "Live Sessions"
+
+
+   [[content.filter_button]]
+     name = "Open-Source"
+     tag = "Open-Source"   
      
      
 #   [[content.filter_button]]

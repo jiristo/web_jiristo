@@ -16,7 +16,7 @@ height = ""
 # Slides.
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
-  title = "ML in Economics Stream Owner"
+  title = ""
   #content = ""
   align = "center"  # Choose `center`, `left`, or `right`.
 
@@ -29,13 +29,13 @@ height = ""
   # Call to action button (optional).
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
-  cta_label = "A.I.S.C"
+  cta_label = "Open-source Contributer"
   cta_url = "https://aisc.ai.science/"
   cta_icon_pack = "fas"
   cta_icon = "fa-robot"
 
 [[item]]
-  title = "Data Science Fellow"
+  title = ""
   #content = "Affiliated"
   align = "center"
 
@@ -45,8 +45,8 @@ height = ""
 
  # Call to action button (optional).
  
-  cta_label = "Sharpest Minds"
-  cta_url = "https://www.sharpestminds.com/"
+  cta_label = "Mentor"
+  cta_url = "https://app.sharpestminds.com/mentor-bio/jiri-stodulka"
   cta_icon_pack = "fas"
   cta_icon = "fa-robot"
 

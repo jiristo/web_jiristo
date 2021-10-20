@@ -12,9 +12,7 @@ title = "Public"
 subtitle = ""
 +++
 ## Appearances
-* Sep 30th 2019: Presenter [AISC Abstract Night and Social](https://youtu.be/YPkyU2HodBg?t=252) 
-* Aug 08th 2019: Presenter [SharpestMinds Toronto Meetup](https://www.sharpestminds.com/)
-* Jun 2Oth 2019: Presenter [AISC Abstract Night and Social](https://youtu.be/JZLpr0jNrKo?t=4400) 
+I am a very active member of [Aggregate Intellect](https://ai.science/)! If are eager to *"stop searching alone and start building together"*, join the 10K+ community in our [Slack](https://aisc-to.slack.com/join/shared_invite/zt-f5zq5l35-PSIJTFk4v60FML177PgsPg#/shared-invite/email) channel!
 
 <a class="twitter-timeline" data-height="400" href="https://twitter.com/jiristo?ref_src=twsrc%5Etfw">Tweets by jiristo</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
