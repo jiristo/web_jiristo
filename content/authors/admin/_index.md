@@ -94,6 +94,7 @@ With Aggregate Intellect, I facilitate discussion groups about various topics in
 
 
 
+git remote add origin https//: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/@github.com/jiristo/web_jiristo.git
 
 
 
