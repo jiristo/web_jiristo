@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Jiri Stodulka</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Jiri Stodulka</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Jiri Stodulka</copyright>
+    <lastBuildDate>Sun, 23 Aug 2020 19:12:37 -0400</lastBuildDate>
+    
+	    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>deployment</title>
+      <link>/tags/deployment/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>end-to-end</title>
+      <link>/tags/end-to-end/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/end-to-end/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NLP</title>
+      <link>/tags/nlp/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recommender system</title>
+      <link>/tags/recommender-system/</link>
+      <pubDate>Sun, 23 Aug 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/recommender-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Live Sessions</title>
+      <link>/tags/live-sessions/</link>
+      <pubDate>Fri, 24 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/live-sessions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Inspiration</title>
+      <link>/tags/inspiration/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/inspiration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bagging</title>
+      <link>/tags/bagging/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/bagging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ensemble</title>
+      <link>/tags/ensemble/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/ensemble/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>random forest</title>
+      <link>/tags/random-forest/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/random-forest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>time-series</title>
+      <link>/tags/time-series/</link>
+      <pubDate>Tue, 07 Apr 2020 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/time-series/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CF</title>
+      <link>/tags/cf/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/cf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>factorization</title>
+      <link>/tags/factorization/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/factorization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>matrix</title>
+      <link>/tags/matrix/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/matrix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NMF</title>
+      <link>/tags/nmf/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/nmf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recommender</title>
+      <link>/tags/recommender/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/recommender/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SVD</title>
+      <link>/tags/svd/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/svd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>system</title>
+      <link>/tags/system/</link>
+      <pubDate>Sun, 13 Oct 2019 19:12:37 -0400</pubDate>
+      
+      <guid>/tags/system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>clustering</title>
+      <link>/tags/clustering/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/clustering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>crime</title>
+      <link>/tags/crime/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/crime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>folium</title>
+      <link>/tags/folium/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/folium/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heatmap</title>
+      <link>/tags/heatmap/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/heatmap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>/tags/python/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>toronto</title>
+      <link>/tags/toronto/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/toronto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>visualization</title>
+      <link>/tags/visualization/</link>
+      <pubDate>Fri, 28 Jun 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>classifier</title>
+      <link>/tags/classifier/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/classifier/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>knn</title>
+      <link>/tags/knn/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/knn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>/tags/ml/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>randomforest</title>
+      <link>/tags/randomforest/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/randomforest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>regression</title>
+      <link>/tags/regression/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/regression/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sklearn</title>
+      <link>/tags/sklearn/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/sklearn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>supervised</title>
+      <link>/tags/supervised/</link>
+      <pubDate>Tue, 28 May 2019 19:26:32 -0400</pubDate>
+      
+      <guid>/tags/supervised/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Articles</title>
+      <link>/tags/articles/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/articles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rvest</title>
+      <link>/tags/rvest/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rvest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sentimentanalysis</title>
+      <link>/tags/sentimentanalysis/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sentimentanalysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>textmining</title>
+      <link>/tags/textmining/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/textmining/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>webscraping</title>
+      <link>/tags/webscraping/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/webscraping/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
